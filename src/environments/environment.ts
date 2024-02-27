@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://node-implementation.vercel.app/api',
+    apiUrl: 'http://localhost:3000/api',
   };
 
   
