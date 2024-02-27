@@ -1,0 +1,175 @@
+<div class="wrapper-dashboard full-height">
+  <div
+    class="create_location pos-absolute bg-general border-radius-half z-index-1 p-3 cursor-pointer"
+    (click)="addMarket()"
+  >
+    <button class="border-0 bg-transparent">
+      <img src="assets/icons/admin-layout-icons/added_location.svg" />
+    </button>
+  </div>
+
+  <!-- MOBILE -->
+  <div
+    style="max-height: 500px"
+    class="d-sm-block d-md-none overflow-auto mt-4"
+  >
+    <app-search-input
+      *ngIf="store.getMarketsProfilesList().items?.length"
+      [attributeName]="'search'"
+      [(searchText)]="searchText"
+    ></app-search-input>
+
+    <ng-template
+      [ngTemplateOutlet]="noFilterData"
+      [ngTemplateOutletContext]="{ className: ['text-white', 'mt-5'] }"
+    ></ng-template>
+
+    <div
+      *ngFor="
+        let market of store.getMarketsProfilesList().items
+          | searchBox : searchText;
+        let i = index;
+        trackBy: byId;
+        let fist = first
+      "
+    >
+      <div
+        [class.mt-5]="fist"
+        class="cursor-pointer bg-white mt-3 border-radius-10 p-2"
+      >
+        <div class="content d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="text-center text-dark mb-0">
+              {{ market.nameLabel }}
+            </h5>
+          </div>
+
+          <div class="actions d-flex">
+            <div class="border-0 bg-transparent" (click)="editMarket(market)">
+              <img
+                src="assets/icons/admin-layout-icons/edit_pencil.svg"
+                alt=""
+              />
+            </div>
+            <div
+              class="border-0 bg-transparent"
+              (click)="deleteMarket(market.id)"
+            >
+              <img
+                src="assets/icons/admin-layout-icons/delete_trash.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESKTOP -->
+  <div
+    *ngIf="store.getAllMarketsList().items?.length"
+    class="card d-none d-md-flex p-3"
+  >
+    <app-search-input
+      class="col-3 mb-4 dashboard-view"
+      [attributeName]="'search'"
+      [(searchText)]="searchText"
+    ></app-search-input>
+
+    <ng-template [ngTemplateOutlet]="noFilterData"></ng-template>
+
+    <div
+      *ngIf="
+        (store.getAllMarketsList().items | searchBox : searchText)?.length
+      "
+      class="overflow-auto table-responsive"
+    >
+      <table class="table table-responsive">
+        <thead style="position: sticky; top: 0">
+          <tr>
+            <th scope="col">Назва</th>
+            <th scope="col">Посилання</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (market of store.getAllMarketsList().items | searchBox :
+          searchText; track market.marketPrefix; let i = $index) {
+          <tr>
+            <td>
+              <div style="height: 50px" class="d-flex align-items-center">
+                {{ market.title }}
+              </div>
+            </td>
+            <td>
+              <div style="height: 50px" class="d-flex align-items-center">
+                {{ market.details }}
+              </div>
+            </td>
+            <td>
+              <div class="actions d-flex justify-content-end">
+                <div
+                  class="border-0 bg-transparent cursor-pointer"
+                  (click)="editMarket(market)"
+                >
+                  <img
+                    src="assets/icons/admin-layout-icons/edit_pencil.svg"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="border-0 bg-transparent cursor-pointer"
+                  (click)="deleteMarket(market.id)"
+                >
+                  <img
+                    src="assets/icons/admin-layout-icons/delete_trash.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-container
+    *ngIf="
+      !store.getAllMarketsList().items?.length
+    "
+  >
+    <div class="full-height special-size">
+      <h5
+        class="d-flex justify-content-center align-items-center text-center fsz-30 special-size text-white"
+      >
+        Немає даних
+      </h5>
+
+      <button (click)="get()">get</button>
+    </div>
+  </ng-container>
+
+  <ng-container
+    *ngIf="
+      !store.getMarketsProfilesList().items?.length &&
+      store.getDataIsLoadingMarketsProfilesList()
+    "
+  >
+  </ng-container>
+</div>
+
+<ng-template #noFilterData let-className="className">
+  <ng-container
+    *ngIf="
+      !(store.getMarketsProfilesList().items | searchBox : searchText)
+        ?.length && !store.getDataIsLoadingMarketsProfilesList()
+    "
+  >
+    <div>
+      <h5 [ngClass]="className" class="text-center">Результатів не знайдено</h5>
+    </div>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,130 @@
+<div class="d-flex flex-column align-items-center justify-content-center px-3">
+  <div class="d-flex justify-content-between full-width mt-4">
+    <div ngbAutofocus>
+      <h5>
+        {{ isEdit ? "Редагувати Food Market" : "Додати новий Food Market" }}
+      </h5>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="btn-close"
+        aria-describedby="modal-title"
+        aria-label="Close"
+        style="outline: none"
+      ></button>
+    </div>
+  </div>
+  <form [formGroup]="locationForm" class="mx-2 full-width">
+    <div class="d-flex flex-column mt-2">
+      <label>Обрати зі списку</label>
+      <select
+        class="form-select"
+        id="marketId"
+        aria-label="Select a market"
+        formControlName="marketId"
+        (change)="updateFormValue($event)"
+      >
+        <option value="" disabled selected hidden>Виберіть маркет</option>
+        <option *ngFor="let market of marketList" [value]="market.marketId">
+          {{ market.fullName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-flex flex-column mt-2">
+      <label>Назва</label>
+      <input type="text" formControlName="marketName" />
+    </div>
+
+    <div class="d-flex flex-column mt-2">
+      <label>Індекс</label>
+      <input type="text" formControlName="marketIndex" />
+    </div>
+
+    <div class="d-flex flex-column mt-2 pos-relative">
+      <label>Посилання</label>
+      <input type="text" matInput [formControl]="marketPathFC" #pathInput />
+      <img
+        *ngIf="marketPathFC.value"
+        (click)="
+          copyInputMessage(marketPathFC.value); showTooltip('1',copiedHint)
+        "
+        class="copy-clipboard pos-absolute"
+        src="assets/icons/admin-layout-icons/copy-clipboard.svg"
+        alt=""
+        placement="top"
+        triggers="auto"
+      />
+    </div>
+
+    <ng-container *ngIf="isEdit">
+      <div
+        class="qrcode-block d-flex flex-column flex-sm-row justify-content-around align-items-center mt-3"
+      >
+        <div class="py-3">
+          <qrcode
+            (qrCodeURL)="onChangeURL($event)"
+            [qrdata]="marketPathFC.value"
+            [allowEmptyString]="true"
+            [ariaLabel]="'QR Code image with the following content...'"
+            [cssClass]="'center'"
+            [colorDark]="'#000000ff'"
+            [colorLight]="'#ffffffff'"
+            [elementType]="'canvas'"
+            [errorCorrectionLevel]="'M'"
+            [margin]="0"
+            [scale]="0"
+            [title]="'A custom title attribute'"
+            [width]="100"
+          ></qrcode>
+        </div>
+
+        <div
+          class="d-flex mb-3 mb-sm-0"
+          [class.cursor-disabled]="marketPathFC.value ? null : true"
+        >
+          <a
+            [attr.name]="'downloadQR'"
+            class="action-button border-radius-20 border-general text-black text-decoration-none bg-white full-width px-3 py-2"
+            [href]="qrCodeDownloadLink"
+            [class.disable-link]="marketPathFC.value ? null : true"
+            download="{{ 'qr-code' + ' ' + marketIndexFC.value }}"
+          >
+            <img
+              style="margin-right: 10px"
+              src="assets/icons/shared-icons/download.svg"
+              alt="download_icon"
+            />
+            <strong>Завантажити</strong>
+          </a>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="d-flex justify-content-center my-4 w-100-p column-gap-3">
+      <div class="full-width">
+        <button
+          class="action-button border-radius-20 border-0 bg-light-grey full-width"
+        >
+          <strong>Відхилити</strong>
+        </button>
+      </div>
+
+      <div class="full-width">
+        <button
+          class="action-button border-radius-20 border-0 bg-general full-width"
+          type="submit"
+          [disabled]="locationForm.invalid"
+          (click)="submit(locationForm)"
+        >
+          <strong>Додати</strong>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #tipContent let-greeting="copiedHint">{{
+  copiedHint
+}}</ng-template>

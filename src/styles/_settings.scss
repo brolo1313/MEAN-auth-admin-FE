@@ -1,0 +1,174 @@
+$background-body-color: #000000;
+
+$white: #fff;
+$black: #000000;
+$lightGrey: #cdcdcd;
+$generalColor: #f8b218;
+$modalCloseBtn: #c1283c;
+
+$tableHeader: #ededed;
+// $spinnerColor: #E14F4F;
+
+:root {
+  --spinner-color: #e14f4f;
+}
+
+.z-index {
+  &-1 {
+    z-index: 1;
+  }
+}
+
+.full {
+  &-width {
+    width: 100%;
+  }
+
+  &-height {
+    height: 100%;
+  }
+}
+
+.pos {
+  &-relative {
+    position: relative;
+  }
+
+  &-absolute {
+    position: absolute;
+  }
+
+  &-fixed {
+    position: fixed;
+  }
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.margin-top {
+  &-75 {
+    margin-top: 75px;
+  }
+
+  &-150 {
+    margin-top: 150px;
+  }
+}
+
+.text-general {
+  color: $generalColor !important;
+}
+
+.bg {
+  &-general {
+    background-color: $generalColor !important;
+  }
+
+  &-light-grey {
+    background-color: $lightGrey !important;
+  }
+}
+
+.fsz {
+  &-10 {
+    font-size: 10px;
+  }
+
+  &-30 {
+    font-size: 30px;
+  }
+}
+
+.border {
+  &-general {
+    border: 1px solid #f8b218;
+  }
+}
+
+.border-radius {
+  &-10 {
+    border-radius: 10px;
+  }
+
+  &-20 {
+    border-radius: 20px;
+  }
+
+  &-30 {
+    border-radius: 30px;
+  }
+
+  &-half {
+    border-radius: 50%;
+  }
+}
+.column-gap {
+  &-10 {
+    column-gap: 10px;
+  }
+
+  &-5 {
+    column-gap: 5px;
+  }
+}
+
+//DEFAULT TITLE_LOGO UNDERLINE
+.title-text {
+  margin-right: 5px;
+}
+
+.title-text::before,
+.title-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: white;
+}
+
+.title-text::before {
+  height: 2px;
+}
+
+.title-text::after {
+  top: 27px;
+  height: 2px;
+}
+
+.title-text::before {
+  top: 0;
+}
+
+.title-text::after {
+  bottom: 0;
+}
+
+app-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.no-data {
+  color: $white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100svh;
+
+  background: url(../assets/image/bg-no-data.png) center/cover no-repeat;
+}

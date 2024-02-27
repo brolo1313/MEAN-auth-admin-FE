@@ -1,0 +1,33 @@
+// @import "../../../../../styles/settings";
+
+input,
+select,
+.qrcode-block {
+  border-radius: 10px;
+  height: 45px;
+  text-indent: 10px;
+  border: 1px solid #f8b218;
+}
+
+.qrcode-block {
+  height: auto;
+}
+
+select{
+  text-indent: 0;
+}
+
+button.action-button {
+  height: 45px;
+}
+
+.copy-clipboard {
+  right: 30px;
+  bottom: 13px;
+  cursor: pointer;
+}
+
+.disable-link {
+  pointer-events: none;
+  opacity: 0.4;
+}

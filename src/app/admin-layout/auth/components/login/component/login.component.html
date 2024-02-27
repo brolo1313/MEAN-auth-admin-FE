@@ -1,0 +1,89 @@
+<div class="d-flex align-items-center full-width full-height">
+  <div
+    id="login-form-wrapper"
+    class="d-flex align-items-center flex-column m-auto border-radius-14"
+  >
+    <div class="d-flex flex-column align-items-center">
+      <div class="full-width">
+        <div class="mb-4 text-center">
+          <img
+            (click)="navigateToChosePage()"
+            style="width: 80px"
+            src=""
+            alt="logo"
+            class="cursor-pointer"
+          />
+        </div>
+
+        <div class="title-wrappper d-flex justify-content-center">
+          <h4
+            style="font-size: 35px"
+            class="title-text pos-relative mb-0 text-white"
+          >
+            FOOD
+          </h4>
+          <h4 style="font-size: 35px" class="z-index-1 ml-2 mb-0 text-white">
+            MARKET
+          </h4>
+        </div>
+
+        <div style="font-size: 20px" class="text-center text-white mt-3">
+          Вхід
+        </div>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm)" class="mt-4">
+        <div class="d-flex flex-column">
+          <label class="text-white mb-2">Телефон</label>
+          <input
+            type="text"
+            matInput
+            placeholder="Телефон"
+            formControlName="login"
+            prefix="+"
+            mask="00(000) 000 00 00"
+          />
+        </div>
+
+        <div class="d-flex flex-column mt-3 pos-relative">
+          <label class="text-white mb-2">Пароль</label>
+          <input
+            type="password"
+            matInput
+            placeholder="Пароль"
+            formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <i
+            (click)="hide = !hide"
+            class="{{ hide ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash' }}"
+          ></i>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4 w-100-p">
+          <div class="full-width">
+            <button
+              color="primary"
+              class="border-radius-32 bgc-brand full-width"
+              mat-raised-button
+              type="submit"
+              mat-button
+              [disabled]="loginForm.invalid"
+            >
+              <strong>Увійти</strong>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <a
+            class="fsz-sm fw-7 text-brand text-general text-decoration-none"
+            (click)="navigateToResetPage()"
+          >
+            <strong>Забули пароль?</strong>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

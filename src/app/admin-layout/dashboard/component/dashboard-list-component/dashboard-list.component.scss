@@ -1,0 +1,40 @@
+@import "../../../../../styles/settings";
+
+.create_location {
+  bottom: 50px;
+  right: 20px;
+}
+
+div.wrapper-dashboard {
+  padding: 100px 15px 0 15px;
+}
+
+.content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+//TABLE
+.table-responsive {
+  max-height: 500px;
+}
+
+.table > thead > tr > th {
+  background-color: $tableHeader;
+}
+
+.table > tbody > tr > td:first-child,
+.table > thead > tr > th:first-child {
+  padding-left: 20px;
+}
+
+.special-size {
+  height: calc(100% - 100px);
+}

@@ -1,0 +1,78 @@
+.closeModal {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity ease 0.5s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.closeModal::before,
+.closeModal::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  display: block;
+  width: 24px;
+  height: 2px;
+  // background: $modalCloseBtn;
+  background: grey;
+}
+
+.closeModal::before {
+  transform: rotate(45deg);
+}
+
+.closeModal::after {
+  transform: rotate(-45deg);
+}
+
+//Favorite list icon
+.circle {
+  width: 40px;
+  height: 40px;
+  background-color: #f1f2f4;
+  border-radius: 50%;
+}
+
+.favorite {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.favorite-wrapper {
+  position: absolute;
+  right: -4px;
+  bottom: -15px;
+
+  svg.active {
+    fill: $generalColor;
+  }
+}
+
+
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+
+  &-disabled {
+    cursor: not-allowed;
+  }
+
+  &-move {
+    cursor: move;
+  }
+
+  &-default {
+    cursor: default;
+  }
+
+}
