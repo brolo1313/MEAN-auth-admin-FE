@@ -21,6 +21,6 @@ export class AdminHeaderComponent {
   }
 
   public pathToLogin(){
-    this.router.navigate(['/admin/login']);
+    this.router.navigate(['/login']);
   }
 }

@@ -1,9 +1,12 @@
 @import "../../styles/settings";
 
-
 .main-container {
-    height: 100vh;
-    max-height: 100svh; // corrected view on mobile devices
-    background: url(../../assets/image/bg-no-data.png) center/cover
-      no-repeat;
-  }
+  height: 100vh;
+  max-height: 100svh; // corrected view on mobile devices
+  background: url(../../assets/image/bg-no-data.png) center/cover no-repeat;
+}
+
+.mat-sidenav-container {
+  background-color: inherit;
+  height: calc(100vh - 64px);
+}

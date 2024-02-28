@@ -30,7 +30,7 @@ export class ResetPasswordComponent {
   public hide = true;
 
   public navigateBack(){
-    this.router.navigate(['/admin/login']);
+    this.router.navigate(['/login']);
   }
   public submit(loginForm:any) {
     const data = loginForm.value;
