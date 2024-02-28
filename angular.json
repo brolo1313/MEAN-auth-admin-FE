@@ -31,6 +31,7 @@
               "src/_redirects"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -69,9 +70,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
+              "port": 4201,
               "buildTarget": "frontend:build:production"
             },
             "development": {
+              "port": 4202,
               "buildTarget": "frontend:build:development"
             }
           },
@@ -97,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []

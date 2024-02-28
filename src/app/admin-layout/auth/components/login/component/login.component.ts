@@ -38,6 +38,6 @@ export class LoginComponent {
   }
 
   public navigateToResetPage(){
-    this.router.navigate(['/admin/reset-password']);
+    this.router.navigate(['/reset-password']);
   }
 }
