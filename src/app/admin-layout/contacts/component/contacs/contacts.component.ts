@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [
     CommonModule,
   ],
-  styleUrl: './contacts.component.css',
+  styleUrl: './contacts.component.scss',
   templateUrl: './contacts.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
