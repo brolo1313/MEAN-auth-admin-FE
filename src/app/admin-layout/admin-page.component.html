@@ -1,24 +1,100 @@
 <div class="main-container">
-  <mat-toolbar color="primary">
-    <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1>{{title}}</h1>
-    <app-admin-header></app-admin-header>
-  </mat-toolbar>
-  <mat-sidenav-container autosize="true">
-    <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
-      <mat-nav-list>
-        <a mat-list-item *ngFor="let item of navItems">
-          <div  (click)="navigateToPage(item)" class="d-flex flex-column">
-            <mat-icon>house</mat-icon>
-            <span *ngIf="!isCollapsed">{{ item.title }}</span>
+  <div class="desktop" *ngIf="!isMobile">
+    <div class="sidebar" [class.sidebar-close]="!openSidebar">
+      <div class="logo-details">
+        <div class="logo"></div>
+      </div>
+      <ul class="nav-links ps-0" id="nav-links">
+        <li *ngFor="let item of navItems" #itemEl routerLinkActive="active">
+          <div class="dropdown-title">
+            <a [routerLink]="[item.path]">
+              <!-- <i [class]="item.icon"></i> -->
+              <mat-icon style="color: orange" class="link_icon">{{
+                item.icon
+              }}</mat-icon>
+              <span *ngIf="openSidebar" class="link_name">{{
+                item.title
+              }}</span>
+            </a>
           </div>
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+        </li>
+      </ul>
+    </div>
+    <section class="home-section">
+      <div class="home-header">
+        <div class="hamburger-menu">
+          <input
+            type="checkbox"
+            id="checkbox-hamburger-menu"
+            [(ngModel)]="openSidebar"
+          />
+          <label class="label-hamburger-menu" for="checkbox-hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </label>
+        </div>
+        <div class="title">Header</div>
+      </div>
+      <div class="home-view">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- //MOBILE -->
+  <div class="modile" *ngIf="isMobile">
+    <section class="home-section mobile">
+      <div class="home-header">
+        <div class="hamburger-menu">
+          <input
+            type="checkbox"
+            id="checkbox-hamburger-menu"
+            [(ngModel)]="openSidebar"
+          />
+          <label class="label-hamburger-menu" for="checkbox-hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </label>
+        </div>
+        <div class="title">Header</div>
+      </div>
+      <div class="home-view">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+    <div
+      class="sidebar"
+      (mouseenter)="openSidebar = true"
+      [class.sidebar-close]="!openSidebar"
+    >
+      <div class="logo-details d-flex justify-content-center">
+        <div class="logo"></div>
+        <div>
+          <mat-icon
+            *ngIf="openSidebar"
+            style="color: orange; font-size: 30px; margin-top: 5px"
+            class="arrow_back"
+            (click)="openSidebar = false"
+            >arrow_back</mat-icon
+          >
+        </div>
+      </div>
+      <ul class="nav-links ps-0" id="nav-links">
+        <li *ngFor="let item of navItems" #itemEl routerLinkActive="active">
+          <div class="dropdown-title">
+            <a [routerLink]="[item.path]">
+              <!-- <i [class]="item.icon"></i> -->
+              <mat-icon style="color: orange" class="link_icon">{{ item.icon }}</mat-icon>
+              <span *ngIf="openSidebar" class="link_name">{{
+                item.title
+              }}</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

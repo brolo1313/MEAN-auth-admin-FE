@@ -10,11 +10,12 @@ import { MatListModule } from '@angular/material/list';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { navigation } from './navigation/navigation';
 import { filter } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule,RouterModule, NgIf, NgFor, AdminHeaderComponent, AdminHeaderComponent, MatIconModule,
+  imports: [CommonModule,RouterModule,FormsModule , NgIf, NgFor, AdminHeaderComponent, AdminHeaderComponent, MatIconModule,
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -25,6 +26,8 @@ import { filter } from 'rxjs';
 export class AdminPageComponent {
 
   navItems = navigation;
+
+  public openSidebar: boolean = true;
 
   
   @ViewChild(MatSidenav)
@@ -54,16 +57,10 @@ export class AdminPageComponent {
     });
   }
 
-  toggleMenu() {
-    if(this.isMobile){
-      this.sidenav.toggle();
-      this.isCollapsed = false;
-    } else {
-      this.sidenav.open();
-      this.isCollapsed = !this.isCollapsed;
-    }
-  }
 
+  showSubmenu(itemEl: HTMLElement) {
+    itemEl.classList.toggle("showMenu");
+  }
 
   navigateToPage(item:any){
     this.router.navigate([item.url]);
