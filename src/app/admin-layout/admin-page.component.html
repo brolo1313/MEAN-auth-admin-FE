@@ -1,100 +1,82 @@
 <div class="main-container">
-  <div class="desktop" *ngIf="!isMobile">
+  <div class="desktop">
     <div class="sidebar" [class.sidebar-close]="!openSidebar">
-      <div class="logo-details">
+      <div class="logo-details d-flex justify-content-center">
         <div class="logo"></div>
+        <mat-icon
+          *ngIf="openSidebar"
+          style="color: orange; font-size: 30px; margin-top: 5px"
+          class="arrow_back"
+          (click)="openSidebar = false"
+          >arrow_back</mat-icon
+        >
       </div>
       <ul class="nav-links ps-0" id="nav-links">
         <li *ngFor="let item of navItems" #itemEl routerLinkActive="active">
-          <div class="dropdown-title">
+          <div *ngIf="item.sub_menu.length == 0" class="dropdown-title">
             <a [routerLink]="[item.path]">
-              <!-- <i [class]="item.icon"></i> -->
               <mat-icon style="color: orange" class="link_icon">{{
                 item.icon
               }}</mat-icon>
               <span *ngIf="openSidebar" class="link_name">{{
-                item.title
+                item.link_name
               }}</span>
             </a>
           </div>
-        </li>
-      </ul>
-    </div>
-    <section class="home-section">
-      <div class="home-header">
-        <div class="hamburger-menu">
-          <input
-            type="checkbox"
-            id="checkbox-hamburger-menu"
-            [(ngModel)]="openSidebar"
-          />
-          <label class="label-hamburger-menu" for="checkbox-hamburger-menu">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-          </label>
-        </div>
-        <div class="title">Header</div>
-      </div>
-      <div class="home-view">
-        <router-outlet></router-outlet>
-      </div>
-    </section>
-  </div>
-
-
-  <!-- //MOBILE -->
-  <div class="modile" *ngIf="isMobile">
-    <section class="home-section mobile">
-      <div class="home-header">
-        <div class="hamburger-menu">
-          <input
-            type="checkbox"
-            id="checkbox-hamburger-menu"
-            [(ngModel)]="openSidebar"
-          />
-          <label class="label-hamburger-menu" for="checkbox-hamburger-menu">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-          </label>
-        </div>
-        <div class="title">Header</div>
-      </div>
-      <div class="home-view">
-        <router-outlet></router-outlet>
-      </div>
-    </section>
-    <div
-      class="sidebar"
-     
-      [class.sidebar-close]="!openSidebar"
-    >
-      <div class="logo-details d-flex justify-content-center">
-        <div class="logo"></div>
-        <div>
-          <mat-icon
-            *ngIf="openSidebar"
-            style="color: orange; font-size: 30px; margin-top: 5px"
-            class="arrow_back"
-            (click)="openSidebar = false"
-            >arrow_back</mat-icon
+          <div
+            *ngIf="item.sub_menu.length > 0"
+            class="dropdown-title cursor-pointer"
+            (click)="showSubmenu(itemEl)"
           >
-        </div>
-      </div>
-      <ul class="nav-links ps-0" id="nav-links">
-        <li *ngFor="let item of navItems" #itemEl routerLinkActive="active">
-          <div class="dropdown-title">
-            <a [routerLink]="[item.path]">
-              <!-- <i [class]="item.icon"></i> -->
-              <mat-icon style="color: orange" class="link_icon">{{ item.icon }}</mat-icon>
+            <a>
+              <mat-icon style="color: orange" class="link_icon">{{
+                item.icon
+              }}</mat-icon>
               <span *ngIf="openSidebar" class="link_name">{{
-                item.title
+                item.link_name
               }}</span>
             </a>
+            <mat-icon
+              *ngIf="openSidebar"
+              style="color: orange"
+              class="arrow cursor-pointer"
+              >keyboard_arrow_down</mat-icon
+            >
           </div>
+
+          <ul class="sub-menu" [class.blank]="item.sub_menu.length == 0">
+            <li [class.d-none]="isMobile || openSidebar">
+              <a class="link_name">{{ item.link_name }}</a>
+            </li>
+            <li
+              *ngFor="let item_sub of item.sub_menu"
+              routerLinkActive="active"
+            >
+              <a [routerLink]="[item_sub.path]">{{ item_sub.link_name }}</a>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
+    <section class="home-section" [class.mobile]="isMobile">
+      <div class="home-header">
+        <div class="hamburger-menu">
+          <input
+            type="checkbox"
+            id="checkbox-hamburger-menu"
+            [(ngModel)]="openSidebar"
+          />
+          <label class="label-hamburger-menu" for="checkbox-hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </label>
+        </div>
+        <div class="title">Header</div>
+      </div>
+      <div class="home-view">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
   </div>
 </div>

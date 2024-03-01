@@ -12,9 +12,6 @@
 //   height: 100vh;
 // }
 
-
-
-
 /* Hamburger Menu */
 .hamburger-menu {
   position: relative;
@@ -78,12 +75,13 @@
 .home-section {
   position: relative;
   background-image: radial-gradient(
-      circle farthest-corner at 7.2% 13.6%,
-      rgba(37, 249, 245, 1) 0%,
-      rgba(8, 70, 218, 1) 90%
+    circle farthest-corner at 7.2% 13.6%,
+    rgba(37, 249, 245, 1) 0%,
+    rgba(8, 70, 218, 1) 90%
   );
   /* background-image: radial-gradient(circle farthest-corner at 7.2% 13.6%, #25f9f5 0%, #0846da 90%); */
   height: 100vh;
+  max-height: 100svh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -98,7 +96,7 @@
 
 .home-section.mobile {
   position: sticky;
-  width: calc(100% - 60px);
+  width: 100%;
 }
 
 .home-section .home-header {
@@ -141,6 +139,10 @@
 
 .sidebar.sidebar-close {
   width: 60px;
+
+  @media (max-width: 800px) {
+    width: 0px;
+  }
 }
 
 .sidebar .logo-details {
@@ -152,8 +154,7 @@
   padding: 20px 10px;
 } */
 
-.sidebar .logo-details .logo
-{
+.sidebar .logo-details .logo {
   height: 40px;
   width: 100%;
   background-image: linear-gradient(to right, #ffa726, #ff5722);
@@ -167,7 +168,10 @@
   height: 100%;
   // width: 260px;
   // padding-bottom: 150px;
-  overflow: auto;
+
+  @media (max-width: 800px) {
+    overflow: auto;
+  }
 }
 
 .sidebar .nav-links::-webkit-scrollbar {
@@ -187,9 +191,7 @@
   background: #ffa726;
 }
 
-
-.sidebar .nav-links li.active
- {
+.sidebar .nav-links li.active {
   background-image: linear-gradient(to right, #ffa726, #ff5722);
 }
 .sidebar .nav-links li.active mat-icon.link_icon,
@@ -232,12 +234,12 @@
   transition: all 0.3s ease;
 }
 
-.sidebar .nav-links li:hover i, 
+.sidebar .nav-links li:hover i,
 .sidebar .nav-links li.active i {
   color: white;
 }
 
-.sidebar .nav-links li.showMenu i.arrow {
+.sidebar .nav-links li.showMenu mat-icon.arrow {
   transform: rotate(-180deg);
 }
 
@@ -246,9 +248,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  // padding: 20px;
+  height: 60px;
   text-decoration: none;
   width: 100%;
+}
+
+.sidebar.sidebar-close .nav-links li .sub-menu a {
+  justify-content: start;
 }
 
 /* Link Name */
@@ -259,11 +266,13 @@
   transition: all 0.4s ease;
 }
 
-.sidebar .nav-links li:hover a .link_name, 
+.sidebar .nav-links li:hover a .link_name,
 .sidebar .nav-links li.active a .link_name,
-.sidebar .nav-links li:hover mat-icon.link_icon, 
-.sidebar .nav-links li.active mat-icon.link_icon {
-  color: white;
+.sidebar .nav-links li:hover mat-icon.link_icon,
+.sidebar .nav-links li.active mat-icon.link_icon,
+.sidebar .nav-links li:hover mat-icon.arrow,
+.sidebar .nav-links li.active mat-icon.arrow {
+  color: white !important;
 }
 
 .sidebar.sidebar-close .nav-links li a .link_name {
@@ -292,15 +301,16 @@
 }
 
 .sidebar .nav-links li .sub-menu li {
-  padding-left: 10px;
+  // padding-left: 10px;
+  height: 60px;
 }
 
-// .sidebar .nav-links li .sub-menu li:hover, 
+// .sidebar .nav-links li .sub-menu li:hover,
 // .sidebar .nav-links li .sub-menu li.active {
 //     background-image: linear-gradient(to right, #ffa726, #ff5722);
 // }
 
-.sidebar .nav-links li .sub-menu li:hover a, 
+.sidebar .nav-links li .sub-menu li:hover a,
 .sidebar .nav-links li .sub-menu li.active a {
   color: white;
 }
@@ -348,9 +358,13 @@
   pointer-events: none;
 }
 
-.sidebar.sidebar-close .nav-links li .sub-menu li:first-child:hover .link_name, 
-.sidebar.sidebar-close .nav-links li .sub-menu li:first-child.active .link_name
- {
+.sidebar.sidebar-close .nav-links li .sub-menu li:first-child:hover .link_name,
+.sidebar.sidebar-close
+  .nav-links
+  li
+  .sub-menu
+  li:first-child.active
+  .link_name {
   color: #ffa726;
 }
 
@@ -365,7 +379,7 @@
   pointer-events: none;
 }
 
-.sidebar .nav-links li:hover .sub-menu.blank, 
+.sidebar .nav-links li:hover .sub-menu.blank,
 .sidebar .nav-links li.active .sub-menu.blank {
   top: 50%;
   transform: translateY(-50%);
@@ -376,8 +390,12 @@
   width: calc(100% - 60px);
 }
 
+.sidebar.sidebar-close ~ .home-section.mobile {
+  width: 100%;
+}
+
 @media (max-width: 420px) {
   .sidebar.sidebar-close .nav-links li .sub-menu {
-      display: none;
+    display: none;
   }
 }

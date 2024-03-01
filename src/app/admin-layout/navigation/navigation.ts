@@ -3,19 +3,34 @@
 export const navigation: any[] = [
   {
     id: 'dashboard',
-    title: 'dashboard',
+    link_name: 'Dashboard',
     type: 'item',
     icon: 'home',
-    path: '/admin/dashboard'
+    path: '/admin/dashboard',
+    sub_menu: []
   },
 
   {
     id: 'contacts',
-    title: 'Contacts',
+    link_name: 'Contacts',
     type: 'item',
+    path: null,
     icon: 'waves',
-    path: '/admin/contacts',
+    sub_menu: [
+      {
+        link_name: "About Us",
+        path: '/admin/contacts',
+      },
+      // {
+      //   link_name: "JavaScript",
+      //   link: "/javascript",
+      // },
+      // {
+      //   link_name: "PHP & MySQL",
+      //   link: "/php-n-mysql",
+      // }
+    ]
   },
 
 
-].sort((a, b) => a.title.localeCompare(b.title)) as [];
+].sort((a, b) => a.link_name.localeCompare(b.link_name)) as [];

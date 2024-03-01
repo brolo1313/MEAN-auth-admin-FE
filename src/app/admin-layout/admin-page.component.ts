@@ -27,7 +27,7 @@ export class AdminPageComponent {
 
   navItems = navigation;
 
-  public openSidebar: boolean = true;
+  public openSidebar: boolean = false;
 
   
   @ViewChild(MatSidenav)
@@ -50,6 +50,7 @@ export class AdminPageComponent {
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if(screenSize.matches){
+        this.openSidebar = false;
         this.isMobile = true;
       } else {
         this.isMobile = false;
