@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule,RouterModule,FormsModule , NgIf, NgFor, AdminHeaderComponent, AdminHeaderComponent, MatIconModule,
+  imports: [CommonModule, RouterModule, FormsModule, NgIf, NgFor, AdminHeaderComponent, AdminHeaderComponent, MatIconModule,
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -29,17 +29,17 @@ export class AdminPageComponent {
 
   public openSidebar: boolean = false;
 
-  
+
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isCollapsed = true;
-  isMobile= true;
+  isMobile = true;
   title: string = '';
 
-  constructor(private observer: BreakpointObserver , private router: Router) {
+  constructor(private observer: BreakpointObserver, private router: Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe((event:any) => {
+    ).subscribe((event: any) => {
       console.log(event.urlAfterRedirects);
       // Extract the route's data to get the title
       // const routeTitle = this.getTitleFromRoute(this.router.routerState, this.router.routerState.root).join(' | ');
@@ -49,7 +49,7 @@ export class AdminPageComponent {
 
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
-      if(screenSize.matches){
+      if (screenSize.matches) {
         this.openSidebar = false;
         this.isMobile = true;
       } else {
@@ -63,7 +63,7 @@ export class AdminPageComponent {
     itemEl.classList.toggle("showMenu");
   }
 
-  navigateToPage(item:any){
+  navigateToPage(item: any) {
     this.router.navigate([item.url]);
     this.title = item.title;
   }
