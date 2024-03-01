@@ -21,10 +21,11 @@ export class DashboardService {
 
 
   public getAllMarketsList() {
-
+    this.storeService.setDataIsLoadingMarketsProfilesList(true)
     return this.http.get(`${environment.apiUrl}/plans`).subscribe(
       (response) => {
         this.storeService.storedAllMarketsList(response);
+        this.storeService.setDataIsLoadingMarketsProfilesList(false);
       },
       (error) => {
         console.error('HTTP Error:', error);

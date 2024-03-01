@@ -9,12 +9,9 @@
   </div>
 
   <!-- MOBILE -->
-  <div
-    style="max-height: 500px"
-    class="d-sm-block d-md-none overflow-auto mt-4"
-  >
+  <div class="d-sm-block d-md-none overflow-auto mt-4">
     <app-search-input
-      *ngIf="store.getMarketsProfilesList().items?.length"
+      *ngIf="store.getAllMarketsList()?.length"
       [attributeName]="'search'"
       [(searchText)]="searchText"
     ></app-search-input>
@@ -24,23 +21,21 @@
       [ngTemplateOutletContext]="{ className: ['text-white', 'mt-5'] }"
     ></ng-template>
 
-    <div
-      *ngFor="
-        let market of store.getMarketsProfilesList().items
-          | searchBox : searchText;
-        let i = index;
-        trackBy: byId;
-        let fist = first
-      "
-    >
+    <div style="max-height: 100%; overflow: auto;">
       <div
+        *ngFor="
+          let market of store.getAllMarketsList() | searchBox : searchText;
+          let i = index;
+          trackBy: byId;
+          let fist = first
+        "
         [class.mt-5]="fist"
         class="cursor-pointer bg-white mt-3 border-radius-10 p-2"
       >
         <div class="content d-flex justify-content-between align-items-center">
           <div>
             <h5 class="text-center text-dark mb-0">
-              {{ market.nameLabel }}
+              {{ market.details }}
             </h5>
           </div>
 
@@ -68,7 +63,7 @@
 
   <!-- DESKTOP -->
   <div
-    *ngIf="store.getAllMarketsList().items?.length"
+    *ngIf="store.getAllMarketsList()?.length"
     class="card d-none d-md-flex p-3"
   >
     <app-search-input
@@ -80,9 +75,7 @@
     <ng-template [ngTemplateOutlet]="noFilterData"></ng-template>
 
     <div
-      *ngIf="
-        (store.getAllMarketsList().items | searchBox : searchText)?.length
-      "
+      *ngIf="(store.getAllMarketsList() | searchBox : searchText)?.length"
       class="overflow-auto table-responsive"
     >
       <table class="table table-responsive">
@@ -94,8 +87,8 @@
           </tr>
         </thead>
         <tbody>
-          @for (market of store.getAllMarketsList().items | searchBox :
-          searchText; track market.marketPrefix; let i = $index) {
+          @for (market of store.getAllMarketsList() | searchBox : searchText;
+          track market.marketPrefix; let i = $index) {
           <tr>
             <td>
               <div style="height: 50px" class="d-flex align-items-center">
@@ -136,36 +129,22 @@
     </div>
   </div>
 
-  <ng-container
-    *ngIf="
-      !store.getAllMarketsList().items?.length
-    "
-  >
+  <ng-container *ngIf="!store.getAllMarketsList()?.length">
     <div class="full-height special-size">
       <h5
         class="d-flex justify-content-center align-items-center text-center fsz-30 special-size text-white"
       >
         Немає даних
       </h5>
-
-      <button (click)="get()">get</button>
     </div>
-  </ng-container>
-
-  <ng-container
-    *ngIf="
-      !store.getMarketsProfilesList().items?.length &&
-      store.getDataIsLoadingMarketsProfilesList()
-    "
-  >
   </ng-container>
 </div>
 
 <ng-template #noFilterData let-className="className">
   <ng-container
     *ngIf="
-      !(store.getMarketsProfilesList().items | searchBox : searchText)
-        ?.length && !store.getDataIsLoadingMarketsProfilesList()
+      !(store.getAllMarketsList() | searchBox : searchText)?.length &&
+      !store.getDataIsLoadingMarketsProfilesList()
     "
   >
     <div>

@@ -115,12 +115,10 @@
   font-weight: 600;
 }
 
-.home-section .home-view {
+.home-section {
   /* height: 100%; */
   // flex-grow: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   color: white;
 }

@@ -30,13 +30,8 @@ export class DashboardListComponent implements OnInit{
 
   ngOnInit() {
     this.getAllPlans.emit();
-    console.log(this.userProfile);
   }
 
-
-  get(){
-    console.log('on init compoennt dash',  this.store.getAllMarketsList());
-  }
 
   public addMarket() {
     
