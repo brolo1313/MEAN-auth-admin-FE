@@ -2,53 +2,43 @@
   <div class="d-flex justify-content-between full-width mt-4">
     <div ngbAutofocus>
       <h5>
-        {{ isEdit ? "Редагувати Food Market" : "Додати новий Food Market" }}
+        {{
+          dataDialog?.isEdit
+            ? "Редагувати план"
+            : "Додати новий план"
+        }}
       </h5>
     </div>
     <div>
       <button
-        type="button"
-        class="btn-close"
-        aria-describedby="modal-title"
-        aria-label="Close"
-        style="outline: none"
-      ></button>
+        class="modal-close-btn"
+        mat-icon-button
+        (click)="cancel()"
+        aria-label="Close dialog button"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
   </div>
   <form [formGroup]="locationForm" class="mx-2 full-width">
-    <div class="d-flex flex-column mt-2">
-      <label>Обрати зі списку</label>
-      <select
-        class="form-select"
-        id="marketId"
-        aria-label="Select a market"
-        formControlName="marketId"
-        (change)="updateFormValue($event)"
-      >
-        <option value="" disabled selected hidden>Виберіть маркет</option>
-        <option *ngFor="let market of marketList" [value]="market.marketId">
-          {{ market.fullName }}
-        </option>
-      </select>
-    </div>
-
+    
     <div class="d-flex flex-column mt-2">
       <label>Назва</label>
-      <input type="text" formControlName="marketName" />
+      <input type="text" formControlName="planName" />
     </div>
 
     <div class="d-flex flex-column mt-2">
-      <label>Індекс</label>
-      <input type="text" formControlName="marketIndex" />
+      <label>Опис</label>
+      <input type="text" formControlName="plantDescription" />
     </div>
 
     <div class="d-flex flex-column mt-2 pos-relative">
       <label>Посилання</label>
-      <input type="text" matInput [formControl]="marketPathFC" #pathInput />
+      <input type="text" matInput [formControl]="planLinkFC" #pathInput />
       <img
-        *ngIf="marketPathFC.value"
+        *ngIf="planLinkFC.value"
         (click)="
-          copyInputMessage(marketPathFC.value); showTooltip('1',copiedHint)
+          copyInputMessage(planLinkFC.value); showTooltip('1',copiedHint)
         "
         class="copy-clipboard pos-absolute"
         src="assets/icons/admin-layout-icons/copy-clipboard.svg"
@@ -58,14 +48,14 @@
       />
     </div>
 
-    <ng-container *ngIf="isEdit">
+    <ng-container *ngIf="dataDialog?.isEdit">
       <div
         class="qrcode-block d-flex flex-column flex-sm-row justify-content-around align-items-center mt-3"
       >
         <div class="py-3">
           <qrcode
             (qrCodeURL)="onChangeURL($event)"
-            [qrdata]="marketPathFC.value"
+            [qrdata]="planLinkFC.value"
             [allowEmptyString]="true"
             [ariaLabel]="'QR Code image with the following content...'"
             [cssClass]="'center'"
@@ -82,14 +72,14 @@
 
         <div
           class="d-flex mb-3 mb-sm-0"
-          [class.cursor-disabled]="marketPathFC.value ? null : true"
+          [class.cursor-disabled]="planLinkFC.value ? null : true"
         >
           <a
             [attr.name]="'downloadQR'"
             class="action-button border-radius-20 border-general text-black text-decoration-none bg-white full-width px-3 py-2"
             [href]="qrCodeDownloadLink"
-            [class.disable-link]="marketPathFC.value ? null : true"
-            download="{{ 'qr-code' + ' ' + marketIndexFC.value }}"
+            [class.disable-link]="planLinkFC.value ? null : true"
+            download="{{ 'qr-code' + ' ' + planDescriptionFC.value }}"
           >
             <img
               style="margin-right: 10px"
@@ -105,6 +95,7 @@
     <div class="d-flex justify-content-center my-4 w-100-p column-gap-3">
       <div class="full-width">
         <button
+          (click)="cancel()"
           class="action-button border-radius-20 border-0 bg-light-grey full-width"
         >
           <strong>Відхилити</strong>

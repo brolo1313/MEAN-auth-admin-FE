@@ -3,7 +3,10 @@ import { CommonModule, NgFor } from '@angular/common';
 import { StoreMarketsService } from '../../services/stored-markets-list.services';
 import { SearchInputComponent } from '../../../../shared/components/input-search/input-search.component';
 import { SearchBoxPipe } from '../../../../shared/pipes/search-box.pipe';
-
+import {
+  MatDialog,
+} from '@angular/material/dialog';
+import { AdminCreateOrEditFormComponent } from '../create-edit-form-modal-component/create-or-edit-form.component';
 
 @Component({
   selector: 'app-admin-dashboard-list',
@@ -12,9 +15,10 @@ import { SearchBoxPipe } from '../../../../shared/pipes/search-box.pipe';
   templateUrl: './dashboard-list.component.html',
   styleUrls: ['./dashboard-list.component.scss'],
 })
-export class DashboardListComponent implements OnInit{
+export class DashboardListComponent implements OnInit {
 
   store = inject(StoreMarketsService);
+  dialog = inject(MatDialog);
 
   userProfile = this.store.getAllMarketsList();
 
@@ -34,16 +38,26 @@ export class DashboardListComponent implements OnInit{
 
 
   public addMarket() {
-    
+
   }
 
   public deleteMarket(profileId: string) {
-   
+
   }
 
-  public editMarket(market: any) {
-   
-  }
+  public editMarket(plan: any) {
+    const dialogRef = this.dialog.open(AdminCreateOrEditFormComponent, {
+      maxWidth: '400px',
+      width: '100%',
+      data: {
+        isEdit: true,
+        plan: plan,
+      },
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed with result', result);
+    });
+  }
 
 }

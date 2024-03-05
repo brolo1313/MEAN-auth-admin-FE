@@ -24,7 +24,7 @@
     <div style="max-height: 100%; overflow: auto;">
       <div
         *ngFor="
-          let market of store.getAllMarketsList() | searchBox : searchText;
+          let plan of store.getAllMarketsList() | searchBox : searchText;
           let i = index;
           trackBy: byId;
           let fist = first
@@ -35,12 +35,12 @@
         <div class="content d-flex justify-content-between align-items-center">
           <div>
             <h5 class="text-center text-dark mb-0">
-              {{ market.details }}
+              {{ plan.details }}
             </h5>
           </div>
 
           <div class="actions d-flex">
-            <div class="border-0 bg-transparent" (click)="editMarket(market)">
+            <div class="border-0 bg-transparent" (click)="editMarket(plan)">
               <img
                 src="assets/icons/admin-layout-icons/edit_pencil.svg"
                 alt=""
@@ -48,7 +48,7 @@
             </div>
             <div
               class="border-0 bg-transparent"
-              (click)="deleteMarket(market.id)"
+              (click)="deleteMarket(plan.id)"
             >
               <img
                 src="assets/icons/admin-layout-icons/delete_trash.svg"
@@ -87,24 +87,24 @@
           </tr>
         </thead>
         <tbody>
-          @for (market of store.getAllMarketsList() | searchBox : searchText;
-          track market.marketPrefix; let i = $index) {
+          @for (plan of store.getAllMarketsList() | searchBox : searchText;
+          track plan.marketPrefix; let i = $index) {
           <tr>
             <td>
               <div style="height: 50px" class="d-flex align-items-center">
-                {{ market.title }}
+                {{ plan.title }}
               </div>
             </td>
             <td>
               <div style="height: 50px" class="d-flex align-items-center">
-                {{ market.details }}
+                {{ plan.details }}
               </div>
             </td>
             <td>
               <div class="actions d-flex justify-content-end">
                 <div
                   class="border-0 bg-transparent cursor-pointer"
-                  (click)="editMarket(market)"
+                  (click)="editMarket(plan)"
                 >
                   <img
                     src="assets/icons/admin-layout-icons/edit_pencil.svg"
@@ -113,7 +113,7 @@
                 </div>
                 <div
                   class="border-0 bg-transparent cursor-pointer"
-                  (click)="deleteMarket(market.id)"
+                  (click)="deleteMarket(plan.id)"
                 >
                   <img
                     src="assets/icons/admin-layout-icons/delete_trash.svg"

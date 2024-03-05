@@ -5,12 +5,16 @@ import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormContro
 import { QRCodeModule } from 'angularx-qrcode';
 import { SafeUrl } from '@angular/platform-browser';
 import { StoreMarketsService } from '../../services/stored-markets-list.services';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-admin-create-or-edit-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgFor, NgIf, QRCodeModule],
+  imports: [ReactiveFormsModule, FormsModule, NgFor, NgIf, QRCodeModule, MatFormFieldModule, MatInputModule,MatIconModule],
   templateUrl: './create-or-edit-form.component.html',
   styleUrls: ['./create-or-edit-form.component.scss']
 })
@@ -19,6 +23,9 @@ export class AdminCreateOrEditFormComponent {
   favoriteService = inject(FavoriteService);
   fb = inject(UntypedFormBuilder);
   store = inject(StoreMarketsService);
+
+  dataDialog = inject(MAT_DIALOG_DATA);
+  dialogRef = inject(MatDialogRef<any>);
 
 
 
@@ -29,32 +36,28 @@ export class AdminCreateOrEditFormComponent {
 
 
 
-  @Input() public market!: any;
-  @Input() public isEdit!: any;
-
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
-  public locationForm!: UntypedFormGroup;
+  public locationForm: UntypedFormGroup = this.fb.group({
+    planId: ['', this.dataDialog?.isEdit ? null : [Validators.required]],
+    planName: [{ value: '', disabled: false }],
+    plantDescription: [{ value: '', disabled: false }],
+    planLink: [{ value: '', disabled: false }],
+  });
 
-  get marketPathFC(): UntypedFormControl {
-    return this.locationForm.get('marketPath') as UntypedFormControl;
+  get planLinkFC(): UntypedFormControl {
+    return this.locationForm.get('planLink') as UntypedFormControl;
   }
 
-  get marketIndexFC(): UntypedFormControl {
-    return this.locationForm.get('marketIndex') as UntypedFormControl;
+  get planDescriptionFC(): UntypedFormControl {
+    return this.locationForm.get('plantDescription') as UntypedFormControl;
   }
 
   ngOnInit() {
 
-    this.locationForm = this.fb.group({
-      marketId: ['', this.isEdit ? null : [Validators.required]],
-      marketName: [{ value: '', disabled: true }],
-      marketIndex: [{ value: '', disabled: true }],
-      marketPath: [{ value: '', disabled: true }],
-    });
-
-    if (this.market) {
-      this.fillForm(this.market);
+    if (this.dataDialog.isEdit) {
+      console.log(this.dataDialog);
+      this.fillForm(this.dataDialog.plan);
     }
   }
 
@@ -63,17 +66,15 @@ export class AdminCreateOrEditFormComponent {
   }
 
   public submit(locationForm: any) {
-  
+    if (locationForm.valid) {
+      this.dialogRef.close({
+        ...locationForm.value,
+      });
+    }
   }
 
-  public updateFormValue(event: any) {
-    const selectedMarket = this.marketList.find(
-      (market: any) => market.marketId == event.target.value
-    );
-
-    if (selectedMarket) {
-      this.fillForm(selectedMarket);
-    }
+  public cancel(): void {
+    this.dialogRef.close();
   }
 
   public copyInputMessage(valueToCopy: any) {
@@ -85,11 +86,11 @@ export class AdminCreateOrEditFormComponent {
   }
 
   private fillForm(data: any) {
-    // this.locationForm.patchValue({
-    //   marketName: data.fullName ?? data.nameLabel,
-    //   marketIndex: data.docPrefix,
-    //   marketPath: `food.epicentrk.ua/${data.docPrefix}`,
-    //   marketId: data.marketId,
-    // });
+    this.locationForm.patchValue({
+      planName: data.title,
+      plantDescription: data.details,
+      planLink: data.link,
+      planId: data._id,
+    });
   }
 }
