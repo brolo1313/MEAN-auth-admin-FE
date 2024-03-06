@@ -20,7 +20,11 @@
 
 //TABLE
 .table-responsive {
-  max-height: 500px;
+  // max-height: 250px;
+
+  // @media (min-width: 768px) {
+  //   overflow: auto;
+  // }
 }
 
 .table > thead > tr > th {

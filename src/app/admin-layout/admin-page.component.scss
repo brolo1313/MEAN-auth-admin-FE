@@ -80,8 +80,10 @@
     rgba(8, 70, 218, 1) 90%
   );
   /* background-image: radial-gradient(circle farthest-corner at 7.2% 13.6%, #25f9f5 0%, #0846da 90%); */
-  height: 100vh;
-  max-height: 100svh;
+  // height: 100vh;
+  // max-height: 100svh;
+  height: inherit;
+  overflow: auto;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -138,7 +140,7 @@
 .sidebar.sidebar-close {
   width: 60px;
 
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     width: 0px;
   }
 }
@@ -167,7 +169,7 @@
   // width: 260px;
   // padding-bottom: 150px;
 
-  @media (max-width: 800px) {
+  @media (max-width: 7680px) {
     overflow: auto;
   }
 }

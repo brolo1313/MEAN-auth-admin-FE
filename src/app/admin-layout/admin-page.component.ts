@@ -48,7 +48,7 @@ export class AdminPageComponent {
   }
 
   ngOnInit() {
-    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
+    this.observer.observe(['(max-width: 768px)']).subscribe((screenSize) => {
       if (screenSize.matches) {
         this.openSidebar = false;
         this.isMobile = true;
