@@ -20,7 +20,7 @@ export class DashboardService {
 
 
 
-  public getAllMarketsList() {
+  public getPlans() {
     this.storeService.setDataIsLoadingMarketsProfilesList(true)
     return this.http.get(`${environment.apiUrl}/plans`).subscribe(
       (response) => {
@@ -33,18 +33,41 @@ export class DashboardService {
     )
   }
 
-  public createMarketProfile(body: any) {
-    return {};
+  public createPlan(body: any) {
+    return this.http.post(`${environment.apiUrl}/plan` , {
+      ...body
+    }).subscribe(
+      (response) => {
+        this.getPlans();
+      },
+      (error) => {
+        console.error('HTTP Error:', error);
+      }
+    )
   }
 
 
-  public deleteMarketProfile(profileId: string) {
-    return null;
-    
+  public deletePlan(planId: string) {
+    return this.http.delete(`${environment.apiUrl}/plans/${planId}`).subscribe(
+      (response) => {
+        this.getPlans();
+      },
+      (error) => {
+        console.error('HTTP Error:', error);
+      }
+    );
   }
 
-  public editMarketProfile(profileId: string, body: any) {
-    return {};
+  public editPlan(data:any) {
+    return this.http.put(`${environment.apiUrl}/plan/${data.id}`, data.body, {
+    }).subscribe(
+      (updatedMarket) => {
+        this.getPlans();
+      },
+      (error) => {
+        console.error('HTTP Error:', error);
+      }
+    );
    
   }
 }

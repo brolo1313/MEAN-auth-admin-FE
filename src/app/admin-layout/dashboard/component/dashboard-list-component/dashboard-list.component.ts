@@ -7,6 +7,8 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { AdminCreateOrEditFormComponent } from '../create-edit-form-modal-component/create-or-edit-form.component';
+import { filter } from 'rxjs';
+import { DeleteConfirmationComponent } from 'src/app/shared/components/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-admin-dashboard-list',
@@ -20,11 +22,11 @@ export class DashboardListComponent implements OnInit {
   store = inject(StoreMarketsService);
   dialog = inject(MatDialog);
 
-  userProfile = this.store.getAllMarketsList();
+  userProfile = this.store.getPlans();
 
-  @Output() createMarketProfile = new EventEmitter();
-  @Output() editMarketProfile = new EventEmitter();
-  @Output() deleteMarketProfile = new EventEmitter();
+  @Output() createPlan = new EventEmitter();
+  @Output() editPlan = new EventEmitter();
+  @Output() deletePlan = new EventEmitter();
   @Output() getAllPlans = new EventEmitter();
 
 
@@ -37,15 +39,41 @@ export class DashboardListComponent implements OnInit {
   }
 
 
-  public addMarket() {
+  public addedPlan() {
+    const dialogRef = this.dialog.open(AdminCreateOrEditFormComponent, {
+      maxWidth: '400px',
+      width: '100%',
+      data: {
+        isEdit: false,
+      },
+    });
 
+    dialogRef.afterClosed().pipe(
+      filter((data: any) => !!data),
+    ).subscribe(result => {
+      this.createPlan.emit(result)
+    });
   }
 
-  public deleteMarket(profileId: string) {
+  public removePlan(planId: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      maxWidth: '400px',
+      width: '100%',
+      data: {
+        isEdit: false,
+        planId
+      },
+    });
 
+    dialogRef.afterClosed().pipe(
+      filter((data: any) => !!data),
+    ).subscribe(result => {
+      this.deletePlan.emit(result)
+    });
   }
+  
 
-  public editMarket(plan: any) {
+  public updatePlan(plan: any) {
     const dialogRef = this.dialog.open(AdminCreateOrEditFormComponent, {
       maxWidth: '400px',
       width: '100%',
@@ -55,8 +83,10 @@ export class DashboardListComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed with result', result);
+    dialogRef.afterClosed().pipe(
+      filter((data: any) => !!data),
+    ).subscribe(result => {
+      this.editPlan.emit(result)
     });
   }
 

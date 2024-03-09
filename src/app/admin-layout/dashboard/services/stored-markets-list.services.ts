@@ -32,7 +32,7 @@ export class StoreMarketsService {
     return this.selectMarketsProfilesList();
   }
 
-  getAllMarketsList() {
+  getPlans() {
     return this.selectAllMarketsList();
   }
 

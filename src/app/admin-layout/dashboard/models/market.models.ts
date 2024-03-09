@@ -1,7 +1,8 @@
-export interface IMarketProfile {
+export interface IPlan {
     id?: string | any,
-    nameLabel: string,
+    logoImage: string,
+    title: string,
+    details: string,
+    coverImage: string,
     link: string,
-    marketId: 0,
-    enabled: true
 }

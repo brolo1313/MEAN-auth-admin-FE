@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Injectable, inject } from '@angular/core';
 import { DashboardListComponent } from '../../component/dashboard-list-component/dashboard-list.component';
 import { DashboardService } from '../../services/dashboard.service';
-import { IMarketProfile } from '../../models/market.models';
+import { IPlan } from '../../models/market.models';
 import { AdminHeaderComponent } from '../../../header/admin-header.component';
 import { StoreMarketsService } from '../../services/stored-markets-list.services';
 
@@ -23,25 +23,28 @@ import { StoreMarketsService } from '../../services/stored-markets-list.services
 })
 export class AdminDashboardContainerComponent {
 
-  private dashServices =inject(DashboardService);
+  private dashServices = inject(DashboardService);
   store = inject(StoreMarketsService);
-  
-  ngOnInit(){
-    
+
+  ngOnInit() {
+
   }
 
-  public getAllPlans(){
-    this.dashServices.getAllMarketsList();
+  public getAllPlans() {
+    this.dashServices.getPlans();
   }
-  public createMarketProfile(data:IMarketProfile){
-    this.dashServices.createMarketProfile(data);
-  }
-
-  public editMarketProfile(data:IMarketProfile){
-    this.dashServices.editMarketProfile(data.id, data);
+  public createPlan(data: IPlan) {
+    delete data.id;
+    this.dashServices.createPlan(data);
   }
 
-  public deleteMarketProfile(marketId:string){
-    this.dashServices.deleteMarketProfile(marketId);
+  public editPlan(data: IPlan) {
+    const { id, logoImage, title, details, coverImage, link } = data;
+    this.dashServices.editPlan({ id, body: { logoImage, title, details, coverImage, link } });
+  }
+
+  public deletePlan(data: any) {
+    const { id } = data;
+    if (id) this.dashServices.deletePlan(id);
   }
 }

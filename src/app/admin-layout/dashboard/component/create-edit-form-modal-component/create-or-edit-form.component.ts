@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-admin-create-or-edit-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgFor, NgIf, QRCodeModule, MatFormFieldModule, MatInputModule,MatIconModule],
+  imports: [ReactiveFormsModule, FormsModule, NgFor, NgIf, QRCodeModule, MatFormFieldModule, MatInputModule, MatIconModule],
   templateUrl: './create-or-edit-form.component.html',
   styleUrls: ['./create-or-edit-form.component.scss']
 })
@@ -29,7 +29,7 @@ export class AdminCreateOrEditFormComponent {
 
 
 
-  marketList = this.store.getAllMarketsList();
+  marketList = this.store.getPlans();
 
   public copiedHint = 'Скопійовано';
   public qrCodeDownloadLink: SafeUrl = "";
@@ -39,24 +39,24 @@ export class AdminCreateOrEditFormComponent {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   public locationForm: UntypedFormGroup = this.fb.group({
-    planId: ['', this.dataDialog?.isEdit ? null : [Validators.required]],
-    planName: [{ value: '', disabled: false }],
-    plantDescription: [{ value: '', disabled: false }],
-    planLink: [{ value: '', disabled: false }],
+    title: [{ value: '', disabled: false }, [Validators.required]],
+    details: [{ value: '', disabled: false, }],
+    link: [{ value: '', disabled: false, }],
+    logoImage: [''],
+    coverImage: [''],
+
   });
 
   get planLinkFC(): UntypedFormControl {
-    return this.locationForm.get('planLink') as UntypedFormControl;
+    return this.locationForm.get('link') as UntypedFormControl;
   }
 
   get planDescriptionFC(): UntypedFormControl {
-    return this.locationForm.get('plantDescription') as UntypedFormControl;
+    return this.locationForm.get('details') as UntypedFormControl;
   }
 
   ngOnInit() {
-
     if (this.dataDialog.isEdit) {
-      console.log(this.dataDialog);
       this.fillForm(this.dataDialog.plan);
     }
   }
@@ -69,6 +69,7 @@ export class AdminCreateOrEditFormComponent {
     if (locationForm.valid) {
       this.dialogRef.close({
         ...locationForm.value,
+        id: this.dataDialog?.plan?.id ?? null,
       });
     }
   }
@@ -87,10 +88,9 @@ export class AdminCreateOrEditFormComponent {
 
   private fillForm(data: any) {
     this.locationForm.patchValue({
-      planName: data.title,
-      plantDescription: data.details,
-      planLink: data.link,
-      planId: data._id,
+      title: data.title,
+      details: data.details,
+      link: data.link,
     });
   }
 }

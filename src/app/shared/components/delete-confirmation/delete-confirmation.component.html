@@ -1,0 +1,14 @@
+<div>
+  <div mat-dialog-title class="d-flex align-items-center justify-content-center pt-3">
+    <span class="fw-5">{{ data.title ? data.title : 'Видалити ?' }}</span>
+  </div>
+
+  <mat-dialog-content>
+    <p class="mb-0 text-center">{{ data?.text ? data?.text : 'Ви впевнені що хочете видалити' }}</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="mb-3 justify-content-evenly" align="center">
+    <button type="button"  mat-stroked-button (click)="cancel()" id="reject" class="mr-2 fw-5">Відхилити</button>
+    <button type="submit"  mat-flat-button (click)="confirm()" color="warn" class="mr-2 fw-5">Видалити</button>
+  </mat-dialog-actions>
+</div>
