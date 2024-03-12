@@ -26,22 +26,16 @@ export class DashboardService {
       (response) => {
         this.storeService.storedAllMarketsList(response);
         this.storeService.setDataIsLoadingMarketsProfilesList(false);
-      },
-      (error) => {
-        console.error('HTTP Error:', error);
       }
     )
   }
 
   public createPlan(body: any) {
-    return this.http.post(`${environment.apiUrl}/plan` , {
+    return this.http.post(`${environment.apiUrl}/plan`, {
       ...body
     }).subscribe(
       (response) => {
         this.getPlans();
-      },
-      (error) => {
-        console.error('HTTP Error:', error);
       }
     )
   }
@@ -51,23 +45,17 @@ export class DashboardService {
     return this.http.delete(`${environment.apiUrl}/plans/${planId}`).subscribe(
       (response) => {
         this.getPlans();
-      },
-      (error) => {
-        console.error('HTTP Error:', error);
       }
     );
   }
 
-  public editPlan(data:any) {
+  public editPlan(data: any) {
     return this.http.put(`${environment.apiUrl}/plan/${data.id}`, data.body, {
     }).subscribe(
       (updatedMarket) => {
         this.getPlans();
-      },
-      (error) => {
-        console.error('HTTP Error:', error);
       }
     );
-   
+
   }
 }
