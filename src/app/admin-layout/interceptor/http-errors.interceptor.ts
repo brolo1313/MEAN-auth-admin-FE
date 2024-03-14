@@ -6,16 +6,31 @@ import {
   MatSnackBar,
 
 } from '@angular/material/snack-bar';
+import { ToastService } from 'src/app/shared/services/toasts.service';
 
 export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const snackBar = inject(MatSnackBar);
+  const authToken = '123'
 
-  const openSnackBar = (message: any, status = '') => snackBar.open(message, status, {
-    duration: 15000
-  });
+  const toast = inject(ToastService);
 
-  return next(req).pipe(
+  const openSnackBar = (message: any, status = '') => toast.openSnackBar(message, 'error');
+
+  const modifiedRequest = req.clone({
+    setHeaders:{
+      bla:'some header'
+    }
+  })
+  if (authToken) {
+    // Clone the request and attach the token
+    const authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${authToken}`
+      }
+    });
+  }
+
+  return next(modifiedRequest).pipe(
     catchError((error: HttpErrorResponse) => {
       const errorName: string = error?.name;
       const errorCode = error?.status;
@@ -39,22 +54,22 @@ export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
         switch (error.status) {
           case 401:
             localStorage.clear();
-            openSnackBar('Ваша сесія застаріла. Увійдіть знову', `Код помилки: ${error.status}`);
+            openSnackBar(`Ваша сесія застаріла. Увійдіть знову, код помилки: ${error.status}`);
             console.warn('!!!Redirect to the login page after!!!');
             // this.authService.signOut();
             break;
           case 504:
           case 505:
-            openSnackBar('На данний момент сервер не доступний.', `Код помилки: ${error.status}`);
+            openSnackBar(`На данний момент сервер не доступний., код помилки: ${error.status}`);
             break;
           case 524:
-            openSnackBar('Виникла помилка, будь ласка зверністься до технічної підтримки', `Код помилки: ${error.status}`);
+            openSnackBar(`Виникла помилка, будь ласка зверністься до технічної підтримки, код помилки: ${error.status}`);
             break;
           case 404:
-            openSnackBar('Запитуваний ресурс недоступний.', `Код помилки: ${error.status}`);
+            openSnackBar(`Запитуваний ресурс недоступний, код помилки: ${error.status}`);
             break;
           default:
-            openSnackBar(error?.error?.ErrorMessage || 'Неочікувана помилка', 'Закрити');
+            openSnackBar(error?.error?.ErrorMessage || 'Неочікувана помилка');
         }
       }
       return throwError(error);

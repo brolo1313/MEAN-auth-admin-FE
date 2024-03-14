@@ -11,6 +11,9 @@ $tableHeader: #ededed;
 
 :root {
   --spinner-color: #e14f4f;
+  --successful-color: #75cb72;
+  --error-color: #ff3333;
+
 }
 
 .z-index {
@@ -153,3 +156,44 @@ $tableHeader: #ededed;
 
 
 
+//snack bar 
+.error {
+  .mdc-snackbar__surface {
+    background-color: var(--error-color) !important;
+  }
+
+  .mdc-snackbar__label {
+    color: $white !important;
+  }
+}
+
+
+.successful {
+  .mdc-snackbar__surface {
+    background-color: var(--successful-color) !important;
+  }
+
+  .mdc-snackbar__label {
+    color: $white !important;
+  }
+
+  &-delete {
+    .mdc-snackbar__surface {
+      background-color: var(--successful-color) !important;
+    }
+  
+    .mdc-snackbar__label {
+      color: $white !important;
+    }
+  }
+
+  &-edit {
+    .mdc-snackbar__surface {
+      background-color: var(--successful-color) !important;
+    }
+  
+    .mdc-snackbar__label {
+      color: $white !important;
+    }
+  }
+}

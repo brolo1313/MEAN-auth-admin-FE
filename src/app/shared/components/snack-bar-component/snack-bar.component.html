@@ -1,0 +1,10 @@
+<div class="snack-container d-flex justify-content-center align-items-end">
+  <div style="margin-right: 10px;">
+    <div>
+      <span>{{data?.message}}</span>
+    </div>
+  </div>
+  <div class="d-flex">
+    <mat-icon (click)="closeSnackbar()">{{getIcon?.icon}}</mat-icon>
+  </div>
+</div>

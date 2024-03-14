@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StoreMarketsService } from './stored-markets-list.services';
 import { LocalStorageService } from '../../auth/services/local-storage.services';
 import { environment } from '../../../../environments/environment';
+import { ToastService } from 'src/app/shared/services/toasts.service';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,7 @@ import { environment } from '../../../../environments/environment';
 export class DashboardService {
 
   localStorageService = inject(LocalStorageService);
+  toastService = inject(ToastService);
 
   constructor(
     private http: HttpClient,
@@ -36,6 +39,7 @@ export class DashboardService {
     }).subscribe(
       (response) => {
         this.getPlans();
+        this.toastService.openSnackBar('Створення успішне', 'successful', 'top')
       }
     )
   }
@@ -45,6 +49,7 @@ export class DashboardService {
     return this.http.delete(`${environment.apiUrl}/plans/${planId}`).subscribe(
       (response) => {
         this.getPlans();
+        this.toastService.openSnackBar('Видалення успішне', 'successful-delete', 'top')
       }
     );
   }
@@ -54,6 +59,7 @@ export class DashboardService {
     }).subscribe(
       (updatedMarket) => {
         this.getPlans();
+        this.toastService.openSnackBar('Редагування успішне', 'successful-edit', 'top')
       }
     );
 

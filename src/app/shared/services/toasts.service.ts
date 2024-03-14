@@ -1,16 +1,23 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import { Injectable, TemplateRef, inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarComponent } from '../components/snack-bar-component/snack-bar.component';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-    toasts: any[] = [];
 
-    show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
-        this.toasts.push({ textOrTpl, ...options });
-      }
-    
-      remove(toast:any) {
-        this.toasts = this.toasts.filter(t => t !== toast);
-      }
+  snackBar = inject(MatSnackBar);
+
+  public openSnackBar(message: string, type?: string, verticalPosition?: any, horizontalPosition?: any) {
+    const _snackType = type !== undefined ? type : 'success';
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      duration: 4000,
+      horizontalPosition: horizontalPosition || 'center',
+      verticalPosition: verticalPosition || 'end',
+      panelClass: type,
+      data: { message: message, snackType: _snackType, snackBar: this.snackBar }
+    });
+  }
+
 }
