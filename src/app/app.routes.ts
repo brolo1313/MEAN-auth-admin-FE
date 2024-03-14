@@ -5,8 +5,10 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'admin',
+        redirectTo: '',
     },
+
+    //ADMIN layout
     {
         path: 'admin',
         loadComponent: () => import('./admin-layout/admin-page.component')
@@ -36,6 +38,25 @@ export const routes: Routes = [
             //     canActivate: [AuthGuard]
             //   },
            
+        ]
+    },
+
+    //SITE layout
+    {
+        path: '',
+        loadComponent: () => import('./site-layout/home.component')
+            .then(mod => mod.HomeComponent),
+        children: [
+            {
+                path: '',
+                redirectTo: 'plans',
+                pathMatch: 'full'
+            },
+            {
+                path: 'plans',
+                loadComponent: () => import('./site-layout/plan-list/containers/menu-list-container/plan-list-container.component')
+                    .then(mod => mod.PlanListContainerComponent),
+            },
         ]
     },
 

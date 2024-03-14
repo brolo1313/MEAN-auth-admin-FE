@@ -151,24 +151,5 @@ $tableHeader: #ededed;
   bottom: 0;
 }
 
-app-loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  height: 100%;
-  width: 100%;
-  position: absolute;
-}
 
-.no-data {
-  color: $white;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100svh;
-
-  background: url(../assets/image/bg-no-data.png) center/cover no-repeat;
-}
