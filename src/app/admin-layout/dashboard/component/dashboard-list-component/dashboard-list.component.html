@@ -8,8 +8,16 @@
     </button>
   </div>
 
+  <div class="d-none d-md-block" *ngIf="store.getDataIsLoadingMarketsProfilesList()">
+    <table-view-skeleton></table-view-skeleton>
+  </div>
+
+  <div class="d-block d-md-none" *ngIf="store.getDataIsLoadingMarketsProfilesList()">
+    <table-view-skeleton></table-view-skeleton>
+  </div>
+
   <!-- MOBILE -->
-  <div class="d-sm-block d-md-none overflow-auto mt-4">
+  <div class="d-md-block d-md-none overflow-auto mt-4">
     <app-search-input
       *ngIf="store.getPlans()?.length"
       [attributeName]="'search'"
@@ -63,7 +71,7 @@
 
   <!-- DESKTOP -->
   <div
-    *ngIf="store.getPlans()?.length"
+    *ngIf="store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()"
     class="card d-none d-md-flex p-3"
     style="max-height: 100vh"
   >
@@ -131,7 +139,7 @@
     </div>
   </div>
 
-  <ng-container *ngIf="!store.getPlans()?.length">
+  <ng-container *ngIf="!store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()">
     <div class="full-height special-size">
       <h5
         class="d-flex justify-content-center align-items-center text-center fsz-30 special-size text-white"

@@ -9,11 +9,12 @@ import {
 import { AdminCreateOrEditFormComponent } from '../create-edit-form-modal-component/create-or-edit-form.component';
 import { filter } from 'rxjs';
 import { DeleteConfirmationComponent } from 'src/app/shared/components/delete-confirmation/delete-confirmation.component';
+import { TableViewSkeletonComponent } from 'src/app/shared/components/skeletons/table-view/table-view.skeleton.component';
 
 @Component({
   selector: 'app-admin-dashboard-list',
   standalone: true,
-  imports: [CommonModule, NgFor, SearchInputComponent, SearchBoxPipe],
+  imports: [CommonModule, NgFor, SearchInputComponent, SearchBoxPipe, TableViewSkeletonComponent],
   templateUrl: './dashboard-list.component.html',
   styleUrls: ['./dashboard-list.component.scss'],
 })
@@ -71,7 +72,7 @@ export class DashboardListComponent implements OnInit {
       this.deletePlan.emit(result)
     });
   }
-  
+
 
   public updatePlan(plan: any) {
     const dialogRef = this.dialog.open(AdminCreateOrEditFormComponent, {

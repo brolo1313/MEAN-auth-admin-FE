@@ -15,6 +15,7 @@ export class DashboardService {
 
   localStorageService = inject(LocalStorageService);
   toastService = inject(ToastService);
+  store = inject(StoreMarketsService);
 
   constructor(
     private http: HttpClient,
@@ -24,6 +25,7 @@ export class DashboardService {
 
 
   public getPlans() {
+    this.store.setDataIsLoadingMarketsProfilesList(true);
     this.storeService.setDataIsLoadingMarketsProfilesList(true)
     return this.http.get(`${environment.apiUrl}/plans`).subscribe(
       (response) => {

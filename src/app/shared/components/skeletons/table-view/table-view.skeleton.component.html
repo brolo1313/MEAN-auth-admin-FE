@@ -1,0 +1,44 @@
+<div class="d-none d-md-block card p-3 event-skeleton">
+  <div class="skeleton-box event-skeleton--search"></div>
+  <table class="table">
+    <thead style="position: sticky; top: 0">
+      <tr>
+        <th scope="col">Назва</th>
+        <th scope="col">Посилання</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of emptyRows">
+        <td>
+          <div
+            style="height: 50px"
+            class="d-flex align-items-center skeleton-box"
+          ></div>
+        </td>
+        <td>
+          <div
+            style="height: 50px"
+            class="d-flex align-items-center skeleton-box"
+          ></div>
+        </td>
+        <td>
+          <div
+            style="height: 50px"
+            class="actions d-flex justify-content-end skeleton-box"
+          >
+            <div class="border-0 bg-transparent cursor-pointer"></div>
+            <div class="border-0 bg-transparent cursor-pointer"></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-block d-md-none p-3 event-skeleton">
+  <div style="width: 100%; margin-bottom: 20px; height: 30px;" class="skeleton-box event-skeleton--search"></div>
+  <ng-container *ngFor="let i of emptyRows">
+    <div class="skeleton-box event-skeleton--mobile"></div>
+  </ng-container>
+</div>
