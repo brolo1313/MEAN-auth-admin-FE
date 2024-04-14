@@ -31,17 +31,25 @@ export class DashboardService {
       (response) => {
         this.storeService.storedAllMarketsList(response);
         this.storeService.setDataIsLoadingMarketsProfilesList(false);
+      },
+      (error) => {
+        this.storeService.setDataIsLoadingMarketsProfilesList(false);
       }
     )
   }
 
   public createPlan(body: any) {
+    this.storeService.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/plan`, {
       ...body
     }).subscribe(
       (response) => {
         this.getPlans();
-        this.toastService.openSnackBar('Створення успішне', 'successful', 'top')
+        this.storeService.setDataIsLoadingMarketsProfilesList(false);
+        this.toastService.openSnackBar('Створення успішне', 'successful', 'top');
+      },
+      (error) => {
+        this.storeService.setDataIsLoadingMarketsProfilesList(false);
       }
     )
   }

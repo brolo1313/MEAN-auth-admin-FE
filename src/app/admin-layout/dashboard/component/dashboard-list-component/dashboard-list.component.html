@@ -2,13 +2,14 @@
   <div
     class="create_location pos-absolute bg-general border-radius-half z-index-1 p-3 cursor-pointer"
     (click)="addedPlan()"
+    [ngClass]="{ 'not-allowed':store.getDataIsLoadingMarketsProfilesList() }"
   >
-    <button class="border-0 bg-transparent">
+    <button [ngClass]="{ 'not-allowed':store.getDataIsLoadingMarketsProfilesList() }" [disabled]="store.getDataIsLoadingMarketsProfilesList()" class="border-0 bg-transparent">
       <img src="assets/icons/admin-layout-icons/added_location.svg" />
     </button>
   </div>
 
-  <div class="d-none d-md-block" *ngIf="store.getDataIsLoadingMarketsProfilesList()">
+  <div class="d-none d-md-block" *ngIf="true">
     <table-view-skeleton></table-view-skeleton>
   </div>
 
