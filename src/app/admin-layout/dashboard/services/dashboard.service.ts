@@ -20,56 +20,71 @@ export class DashboardService {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private storeService: StoreMarketsService) { }
+  ) { }
 
 
 
-  public getPlans() {
-    this.store.setDataIsLoadingMarketsProfilesList(true);
-    this.storeService.setDataIsLoadingMarketsProfilesList(true)
+  public getPlans(callLoader = true) {
+    if (callLoader) {
+      this.store.setDataIsLoadingMarketsProfilesList(true);
+
+    }
     return this.http.get(`${environment.apiUrl}/plans`).subscribe(
       (response) => {
-        this.storeService.storedAllMarketsList(response);
-        this.storeService.setDataIsLoadingMarketsProfilesList(false);
+        this.store.storedAllMarketsList(response)
+        if (callLoader) {
+          this.store.setDataIsLoadingMarketsProfilesList(false);
+
+        }
       },
       (error) => {
-        this.storeService.setDataIsLoadingMarketsProfilesList(false);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
       }
     )
   }
 
   public createPlan(body: any) {
-    this.storeService.setDataIsLoadingMarketsProfilesList(true);
+    this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/plan`, {
       ...body
     }).subscribe(
       (response) => {
-        this.getPlans();
-        this.storeService.setDataIsLoadingMarketsProfilesList(false);
+        this.getPlans(false);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
         this.toastService.openSnackBar('Створення успішне', 'successful', 'top');
       },
       (error) => {
-        this.storeService.setDataIsLoadingMarketsProfilesList(false);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
       }
     )
   }
 
 
   public deletePlan(planId: string) {
+    this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.delete(`${environment.apiUrl}/plans/${planId}`).subscribe(
       (response) => {
-        this.getPlans();
-        this.toastService.openSnackBar('Видалення успішне', 'successful-delete', 'top')
+        this.getPlans(false);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
+        this.toastService.openSnackBar('Видалення успішне', 'successful-delete', 'top');
+      },
+      (error) => {
+        this.store.setDataIsLoadingMarketsProfilesList(false);
       }
     );
   }
 
   public editPlan(data: any) {
+    this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.put(`${environment.apiUrl}/plan/${data.id}`, data.body, {
     }).subscribe(
       (updatedMarket) => {
-        this.getPlans();
-        this.toastService.openSnackBar('Редагування успішне', 'successful-edit', 'top')
+        this.getPlans(false);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
+        this.toastService.openSnackBar('Редагування успішне', 'successful-edit', 'top');
+      },
+      (error) => {
+        this.store.setDataIsLoadingMarketsProfilesList(false);
       }
     );
 

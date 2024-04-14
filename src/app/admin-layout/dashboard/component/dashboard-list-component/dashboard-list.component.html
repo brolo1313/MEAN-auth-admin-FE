@@ -18,7 +18,7 @@
   </div>
 
   <!-- MOBILE -->
-  <div class="d-md-block d-md-none overflow-auto mt-4">
+  <div *ngIf="store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()" class="d-md-block d-md-none overflow-auto mt-4">
     <app-search-input
       *ngIf="store.getPlans()?.length"
       [attributeName]="'search'"
