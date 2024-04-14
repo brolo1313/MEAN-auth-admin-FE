@@ -3,12 +3,14 @@ import { CommonModule, NgFor } from '@angular/common';
 import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
+import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
+import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/stored-markets-list.services';
 
 
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective],
+  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -18,7 +20,7 @@ export class LoginComponent {
 
   public fb = inject(UntypedFormBuilder);
   public router = inject(Router);
-
+  public store = inject(StoreMarketsService);
 
   public loginForm: UntypedFormGroup = this.fb.group({
     username: ['', [Validators.required]],

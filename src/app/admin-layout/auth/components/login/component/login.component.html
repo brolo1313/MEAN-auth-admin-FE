@@ -44,7 +44,9 @@
               mat-raised-button
               type="submit"
               mat-button
-              [disabled]="loginForm.invalid"
+              [disabled]="
+                loginForm.invalid || store.getDataIsLoadingMarketsProfilesList()
+              "
             >
               <strong>Увійти</strong>
             </button>
@@ -61,5 +63,9 @@
         </div> -->
       </form>
     </div>
+
+    <app-loader
+      *ngIf="store.getDataIsLoadingMarketsProfilesList()"
+    ></app-loader>
   </div>
 </div>

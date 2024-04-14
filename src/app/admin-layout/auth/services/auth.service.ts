@@ -5,9 +5,10 @@ import { LocalStorageService } from "./local-storage.services";
 import { ConfirmResetPasswordService } from "./confirm-reset-passwor.service";
 import { environment } from "src/environments/environment";
 import { ToastService } from "src/app/shared/services/toasts.service";
+import { StoreMarketsService } from "../../dashboard/services/stored-markets-list.services";
 
 export interface USER_CREDENTIALS {
-  phone: string,
+  username: string,
   password: string
 }
 
@@ -22,12 +23,18 @@ export class AuthService {
   router = inject(Router);
   localStorageService = inject(LocalStorageService);
   toastService = inject(ToastService);
+  store = inject(StoreMarketsService);
 
   login(loginData: USER_CREDENTIALS) {
+    this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/sign-in`, loginData ).subscribe(
       (response) => {
         this.localStorageService.setUserSettings(response);
         this.router.navigate(['/admin/dashboard']);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
+      },
+      (error) => {
+        this.store.setDataIsLoadingMarketsProfilesList(false);
       }
     );
   }
