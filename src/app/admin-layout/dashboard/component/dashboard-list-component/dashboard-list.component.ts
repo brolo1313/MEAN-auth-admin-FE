@@ -10,11 +10,12 @@ import { AdminCreateOrEditFormComponent } from '../create-edit-form-modal-compon
 import { filter } from 'rxjs';
 import { DeleteConfirmationComponent } from 'src/app/shared/components/delete-confirmation/delete-confirmation.component';
 import { TableViewSkeletonComponent } from 'src/app/shared/components/skeletons/table-view/table-view.skeleton.component';
+import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-admin-dashboard-list',
   standalone: true,
-  imports: [CommonModule, NgFor, SearchInputComponent, SearchBoxPipe, TableViewSkeletonComponent],
+  imports: [CommonModule, NgFor, SearchInputComponent, SearchBoxPipe, TableViewSkeletonComponent, LoaderComponent],
   templateUrl: './dashboard-list.component.html',
   styleUrls: ['./dashboard-list.component.scss'],
 })
@@ -22,7 +23,6 @@ export class DashboardListComponent implements OnInit {
 
   store = inject(StoreMarketsService);
   dialog = inject(MatDialog);
-
   userProfile = this.store.getPlans();
 
   @Output() createPlan = new EventEmitter();
@@ -34,11 +34,9 @@ export class DashboardListComponent implements OnInit {
   public byId = (item: any) => item?.id;
   public searchText!: string;
 
-
   ngOnInit() {
     this.getAllPlans.emit();
   }
-
 
   public addedPlan() {
     const dialogRef = this.dialog.open(AdminCreateOrEditFormComponent, {

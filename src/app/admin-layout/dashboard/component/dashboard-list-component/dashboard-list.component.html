@@ -98,8 +98,8 @@
           </tr>
         </thead>
         <tbody>
-          @for (plan of store.getPlans() | searchBox : searchText;
-          track plan.marketPrefix; let i = $index) {
+          @for (plan of store.selectAllMarketsList() | searchBox : searchText;
+          track plan.id; let i = $index) {
           <tr>
             <td>
               <div style="height: 50px" class="d-flex align-items-center">
@@ -139,6 +139,9 @@
       </table>
     </div>
   </div>
+
+
+  <app-loader style="position: absolute; left: 40%;" *ngIf="store.getIsLoadingAfterCrudOperation()"></app-loader>
 
   <ng-container *ngIf="!store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()">
     <div class="full-height special-size">
