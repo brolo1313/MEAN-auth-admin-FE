@@ -7,21 +7,15 @@
           style="margin-right: 0"
           routerLink="/admin/dashboard"
         >
-          <img
-            class="navbar-brand"
-            src=""
-            alt=""
-          />
+          <img class="navbar-brand" src="" alt="" />
         </a>
-
-        <!-- <div class="title-wrappper d-flex">
-          <h4 class="title-text pos-relative mb-0 text-white">FOOD</h4>
-          <h4 class="z-index-1 ml-2 mb-0 text-white">MARKET</h4>
-        </div> -->
       </div>
 
       <div class="d-flex column-gap-10">
-        <div (click)="logOut()" class="z-index-1 pos-relative cursor-pointer mr-2">
+        <div
+          (click)="logOut()"
+          class="z-index-1 pos-relative cursor-pointer mr-2"
+        >
           <svg
             width="42"
             height="42"
@@ -35,10 +29,6 @@
               fill="#F8B218"
             />
           </svg>
-        </div>
-
-        <div>
-          <button (click)="pathToLogin()">Login page</button>
         </div>
       </div>
     </div>

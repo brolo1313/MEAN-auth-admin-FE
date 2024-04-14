@@ -23,3 +23,9 @@ i {
 .title-text::after {
   top: 41px;
 }
+
+div.login-wrapper {
+  height: 100vh;
+  background: url(../../../../../../assets/image/login-background.jpg) center/cover
+  no-repeat;
+}

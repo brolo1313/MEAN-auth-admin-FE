@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './admin-layout/auth/services/auth.guard';
 
 export const routes: Routes = [
 
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '',
+        redirectTo: 'admin',
     },
 
     //ADMIN layout
@@ -13,6 +14,7 @@ export const routes: Routes = [
         path: 'admin',
         loadComponent: () => import('./admin-layout/admin-page.component')
             .then(mod => mod.AdminPageComponent),
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
@@ -37,39 +39,39 @@ export const routes: Routes = [
             //       .then(mod => mod.AdminDashboardContainerComponent),
             //     canActivate: [AuthGuard]
             //   },
-           
+
         ]
     },
 
     //SITE layout
-    {
-        path: '',
-        loadComponent: () => import('./site-layout/home.component')
-            .then(mod => mod.HomeComponent),
-        children: [
-            {
-                path: '',
-                redirectTo: 'plans',
-                pathMatch: 'full'
-            },
-            {
-                path: 'plans',
-                loadComponent: () => import('./site-layout/plan-list/containers/menu-list-container/plan-list-container.component')
-                    .then(mod => mod.PlanListContainerComponent),
-            },
-        ]
-    },
+    // {
+    //     path: '',
+    //     loadComponent: () => import('./site-layout/home.component')
+    //         .then(mod => mod.HomeComponent),
+    //     children: [
+    //         {
+    //             path: '',
+    //             redirectTo: 'plans',
+    //             pathMatch: 'full'
+    //         },
+    //         {
+    //             path: 'plans',
+    //             loadComponent: () => import('./site-layout/plan-list/containers/menu-list-container/plan-list-container.component')
+    //                 .then(mod => mod.PlanListContainerComponent),
+    //         },
+    //     ]
+    // },
 
     {
         path: 'login',
         loadComponent: () => import('./admin-layout/auth/components/login/containers/login-container/login-container.component')
             .then(mod => mod.AdminLoginContainer),
     },
-    {
-        path: 'reset-password',
-        loadComponent: () => import('./admin-layout/auth/components/resetPassword/containers/resetPassword-container/resetPassword-container.component')
-            .then(mod => mod.AdminResetPasswordContainer),
-    },
+    // {
+    //     path: 'reset-password',
+    //     loadComponent: () => import('./admin-layout/auth/components/resetPassword/containers/resetPassword-container/resetPassword-container.component')
+    //         .then(mod => mod.AdminResetPasswordContainer),
+    // },
 
     //default route
     {

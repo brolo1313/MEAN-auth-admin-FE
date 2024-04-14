@@ -21,7 +21,7 @@ export class LoginComponent {
 
 
   public loginForm: UntypedFormGroup = this.fb.group({
-    login: ['', [Validators.required]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
 

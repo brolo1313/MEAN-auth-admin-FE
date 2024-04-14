@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { FavoriteService } from '../../../../shared/services/favorite-services';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { SafeUrl } from '@angular/platform-browser';
@@ -20,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AdminCreateOrEditFormComponent {
 
-  favoriteService = inject(FavoriteService);
   fb = inject(UntypedFormBuilder);
   store = inject(StoreMarketsService);
 
