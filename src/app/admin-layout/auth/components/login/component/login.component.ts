@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/stored-markets-list.services';
@@ -10,7 +10,7 @@ import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/sto
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent],
+  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

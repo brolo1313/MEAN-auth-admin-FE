@@ -73,6 +73,12 @@ export const routes: Routes = [
     //         .then(mod => mod.AdminResetPasswordContainer),
     // },
 
+
+     {
+        path: 'registration',
+        loadComponent: () => import('./admin-layout/auth/components/registration/registration.component')
+            .then(mod => mod.RegistrationComponent),
+    },
     //default route
     {
         path: '**',

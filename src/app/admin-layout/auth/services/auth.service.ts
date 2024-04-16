@@ -44,6 +44,20 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  public registration(user: any) {
+    return this.http.post(`${environment.apiUrl}/sign-up`, user).subscribe(
+      (response) => {
+        this.localStorageService.setUserSettings(response);
+        this.store.setDataIsLoadingMarketsProfilesList(false);
+        this.toastService.openSnackBar('Реєстрація успішна, можете увійти', 'successful', 'top');
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        this.store.setDataIsLoadingMarketsProfilesList(false);
+      }
+    );;
+  }
+
   public forgotPwRequest(user: any) {
     return this.http.put(`${environment.apiUrl}/system/common/tokens/auth/password/reset/request`, user).subscribe(
       (response) => {

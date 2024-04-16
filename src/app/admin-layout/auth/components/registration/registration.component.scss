@@ -1,0 +1,42 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  mat-icon {
+    position: absolute;
+    right: 12px;
+    top: 52px;
+    transform: translateY(-50%);
+    color: mediumseagreen;
+  }
+}
+input {
+  border-radius: 20px;
+  height: 40px;
+  width: 270px;
+  text-indent: 10px;
+  border: 1px solid #f8b218;
+}
+
+button {
+  background: #f8b218;
+  border-radius: 20px;
+  height: 40px;
+}
+
+i {
+  position: absolute;
+  right: 13px;
+  bottom: 12px;
+}
+
+.title-text::after {
+  top: 41px;
+}
+
+div.register-wrapper {
+  height: 100svh;
+  background: url(../../../../../assets/image/login-background.jpg) center/cover
+    no-repeat;
+}

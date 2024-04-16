@@ -72,6 +72,12 @@ $tableHeader: #ededed;
   color: $generalColor !important;
 }
 
+.text {
+  &-white {
+    color: $white;
+  }
+}
+
 .bg {
   &-general {
     background-color: $generalColor !important;
@@ -231,4 +237,10 @@ $tableHeader: #ededed;
 
 .not-allowed:hover {
   cursor: not-allowed !important;
+}
+
+.text-decoration {
+  &-none {
+    text-decoration:underline;
+  }
 }

@@ -1,0 +1,129 @@
+<div class="register-wrapper d-flex align-items-center full-width full-height">
+  <div class="d-flex align-items-center flex-column m-auto border-radius-14">
+    <div id="register-form" class="border-radius-14">
+      <div style="font-size: 20px" class="text-center text-white mt-3">
+        Реєстрація
+      </div>
+
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="submit(registerForm)"
+        class="full-width mt-4"
+      >
+        <div class="input-wrapper">
+          <label class="text-white mb-2">Імя</label>
+          <input
+            type="text"
+            matInput
+            placeholder="Імя"
+            [formControl]="UserNameFC"
+          />
+
+          <mat-icon *ngIf="UserNameFC.valid && UserNameFC.dirty">
+            check_circle_outline
+          </mat-icon>
+        </div>
+
+        <div class="input-wrapper">
+          <label class="text-white mb-2">Пошта</label>
+          <input
+            type="email"
+            matInput
+            placeholder="Імя"
+            [formControl]="EmailFC"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          />
+          <mat-icon *ngIf="EmailFC.valid && EmailFC.dirty">
+            check_circle_outline
+          </mat-icon>
+        </div>
+
+        <div class="input-wrapper">
+          <label class="text-white mb-2">Пароль</label>
+          <input
+            type="password"
+            matInput
+            placeholder="Пароль"
+            [formControl]="passwordFC"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <i
+            (click)="hide = !hide"
+            class="{{ hide ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash' }}"
+          ></i>
+
+          <mat-icon *ngIf="passwordFC.valid && passwordFC.dirty">
+            check_circle_outline
+          </mat-icon>
+        </div>
+
+        <div class="input-wrapper">
+          <label class="text-white mb-2">Повторити пароль</label>
+          <input
+            type="password"
+            matInput
+            placeholder="Пароль"
+            [formControl]="passwordConfirmationFC"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <i
+            (click)="hide = !hide"
+            class="{{ hide ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash' }}"
+          ></i>
+
+          <mat-icon
+            *ngIf="passwordConfirmationFC.valid && passwordConfirmationFC.dirty"
+          >
+            check_circle_outline
+          </mat-icon>
+        </div>
+
+        <div style="display: flex; flex-direction: column">
+          <mat-error
+            class="text-danger"
+            *ngIf="passwordConfirmationFC.hasError('matching')"
+          >
+            Паролі не співпадають
+          </mat-error>
+
+          <mat-error
+            class="text-danger"
+            *ngIf="passwordConfirmationFC.errors?.['minlength'] || passwordFC.errors?.['minlength']"
+          >
+            Пароль закороткий
+          </mat-error>
+        </div>
+
+        <div class="mt-5">
+          <button
+            color="primary"
+            class="border-radius-32 bgc-brand full-width mb-3"
+            mat-raised-button
+            type="submit"
+            mat-button
+            [disabled]="
+              registerForm.invalid ||
+              store.getDataIsLoadingMarketsProfilesList()
+            "
+          >
+            <strong>Реєстрація</strong>
+          </button>
+
+          <button
+            type="button"
+            mat-raised-button
+            class="full-width text-dusty-gray bgc-catSkill border-radius-32"
+            id="back"
+            routerLink="/login"
+          >
+            Назад
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <app-loader
+      *ngIf="store.getDataIsLoadingMarketsProfilesList()"
+    ></app-loader>
+  </div>
+</div>

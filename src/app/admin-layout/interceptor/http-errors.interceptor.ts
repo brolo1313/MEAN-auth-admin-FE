@@ -69,7 +69,7 @@ export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
             openSnackBar(`Запитуваний ресурс недоступний, код помилки: ${error.status}`);
             break;
           default:
-            openSnackBar(error?.error?.ErrorMessage || 'Неочікувана помилка');
+            openSnackBar(error?.error?.message || 'Неочікувана помилка');
         }
       }
       return throwError(error);
