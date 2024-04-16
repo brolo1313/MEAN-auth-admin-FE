@@ -45,6 +45,7 @@ export class AuthService {
   }
 
   public registration(user: any) {
+    this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/sign-up`, user).subscribe(
       (response) => {
         this.localStorageService.setUserSettings(response);

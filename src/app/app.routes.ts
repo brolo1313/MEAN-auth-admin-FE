@@ -33,13 +33,6 @@ export const routes: Routes = [
                     .then(mod => mod.ContactsComponent),
                 // canActivate: [AuthGuard]
             },
-            //   {
-            //     path: 'auth',
-            //     loadComponent: () => import('./admin-layout/dashboard/containers/dashboard-list-container/dashboard-list-container.component')
-            //       .then(mod => mod.AdminDashboardContainerComponent),
-            //     canActivate: [AuthGuard]
-            //   },
-
         ]
     },
 

@@ -1,1 +1,23 @@
-<h2>Contacts work</h2>
+<ng-container
+  *ngIf="
+    storeUsers.getUsers().length || !storeUsers.getIsLoadingAllUsers;
+    else noData
+  "
+>
+  <ul>
+    <li *ngFor="let user of storeUsers.getUsers(); index as i" class="users-list">
+      <span><strong>{{ i + 1 }}. name:</strong>{{ user.username }}</span>
+      <span style="margin-left: 18px;"><strong>email:</strong> {{ user.email }}</span>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noData>
+  <ul>
+    <li class="skeleton-box"></li>
+    <li class="skeleton-box"></li>
+    <li class="skeleton-box"></li>
+    <li class="skeleton-box"></li>
+    <li class="skeleton-box"></li>
+  </ul>
+</ng-template>
