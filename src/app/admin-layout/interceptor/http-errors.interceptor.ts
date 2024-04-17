@@ -2,41 +2,32 @@ import type { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http'
 import { catchError, throwError } from 'rxjs';
 import { HttpErrors } from './http-error.config';
 import { inject } from '@angular/core';
-import {
-  MatSnackBar,
 
-} from '@angular/material/snack-bar';
 import { ToastService } from 'src/app/shared/services/toasts.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/services/auth.service';
 
 export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const authToken = '123'
-
   const toast = inject(ToastService);
-
+  const authService = inject(AuthService);
+  
   const openSnackBar = (message: any, status = '') => toast.openSnackBar(message, 'error');
 
+  const localeStorage = localStorage?.getItem('auth');
+  const accessToken = localeStorage ? JSON.parse(localeStorage).userSettings.accessToken : null;
+
   const modifiedRequest = req.clone({
-    setHeaders:{
-      bla:'some header'
+    setHeaders: {
+      Authorization: accessToken ? `Bearer ${accessToken}` : ''
     }
   })
-  if (authToken) {
-    // Clone the request and attach the token
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${authToken}`
-      }
-    });
-  }
-
   return next(modifiedRequest).pipe(
     catchError((error: HttpErrorResponse) => {
       const errorName: string = error?.name;
       const errorCode = error?.status;
       const errorMessage = error?.message;
       const errorKey = Object.keys(error.error)[0];
-
 
       if (HttpErrors.hasOwnProperty(errorKey)) {
         let found = false;
@@ -56,7 +47,7 @@ export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
             localStorage.clear();
             openSnackBar(`Ваша сесія застаріла. Увійдіть знову, код помилки: ${error.status}`);
             console.warn('!!!Redirect to the login page after!!!');
-            // this.authService.signOut();
+            authService.signOut();
             break;
           case 504:
           case 505:

@@ -1,4 +1,4 @@
-import { UsersService } from './../../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { StoreUsersService } from '../../services/store-users.services';
@@ -10,8 +10,8 @@ import { StoreUsersService } from '../../services/store-users.services';
     CommonModule,
     NgFor
   ],
-  styleUrl: './contacts.component.scss',
-  templateUrl: './contacts.component.html',
+  styleUrl: './users.component.scss',
+  templateUrl: './users.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactsComponent {

@@ -29,7 +29,7 @@ export const routes: Routes = [
             },
             {
                 path: 'contacts',
-                loadComponent: () => import('./admin-layout/contacts/component/contacs/contacts.component')
+                loadComponent: () => import('./admin-layout/users/component/users/users.component')
                     .then(mod => mod.ContactsComponent),
                 // canActivate: [AuthGuard]
             },
