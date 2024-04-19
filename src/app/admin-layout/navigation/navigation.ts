@@ -3,7 +3,7 @@
 export const navigation: any[] = [
   {
     id: 'dashboard',
-    link_name: 'Dashboard',
+    link_name: 'Дошка',
     type: 'item',
     icon: 'home',
     path: '/admin/dashboard',
@@ -12,13 +12,13 @@ export const navigation: any[] = [
 
   {
     id: 'contacts',
-    link_name: 'Contacts',
+    link_name: 'Про нас',
     type: 'item',
     path: null,
     icon: 'waves',
     sub_menu: [
       {
-        link_name: "About Us",
+        link_name: "Користувачі",
         path: '/admin/contacts',
       },
       // {
