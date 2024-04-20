@@ -53,22 +53,24 @@
           </div>
         </div>
 
-        <!-- <div class="text-center mt-4">
+        <div class="cursor-pointer text-center mt-4">
           <a
             class="fsz-sm fw-7 text-brand text-general text-decoration-none"
             (click)="navigateToResetPage()"
           >
             <strong>Забули пароль?</strong>
           </a>
-        </div> -->
+        </div>
         <div class="mt-3 text-center">
           <span class="text-white">Не маєте акаунта? </span><a class="text-decoration-none text-general cursor-pointer" routerLink="/registration">Зареєструватись</a>
         </div>
       </form>
     </div>
 
-    <app-loader
-      *ngIf="store.getDataIsLoadingMarketsProfilesList()"
-    ></app-loader>
+
   </div>
 </div>
+
+<app-loader
+*ngIf="store.getDataIsLoadingMarketsProfilesList()"
+></app-loader>

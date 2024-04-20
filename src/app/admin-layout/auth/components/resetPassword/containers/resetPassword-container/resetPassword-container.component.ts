@@ -24,16 +24,6 @@ export class AdminResetPasswordContainer {
   authService = inject(AuthService);
 
   public onResetPassword(data: any) {
-    if (data.code && data.code.length) {
-      const confirmationData = this.resetPassService.getConfirmationData();
-      const result = {
-        ...data,
-        operationId: confirmationData.opertionId
-      }
-      this.authService.forgotPwConfirm(result)
-    } else {
-      delete data.code;
-      this.authService.forgotPwRequest(data)
-    }
+    this.authService.forgotPwRequest(data);
   }
 }

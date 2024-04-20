@@ -3,14 +3,20 @@
 @import "styles/_settings";
 @import "styles/_buttons";
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
+@import "bootstrap/scss/bootstrap";
 
 body {
-    background-color: $background-body-color; 
- }
+  background-color: $background-body-color;
+}
 
+app-admin-header {
+  width: 100%;
+}
 
- app-admin-header {
-    width: 100%;
- }
+app-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}

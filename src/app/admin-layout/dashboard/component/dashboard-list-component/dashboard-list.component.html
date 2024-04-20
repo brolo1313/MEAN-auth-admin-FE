@@ -2,23 +2,38 @@
   <div
     class="create_location pos-absolute bg-general border-radius-half z-index-1 p-3 cursor-pointer"
     (click)="addedPlan()"
-    [ngClass]="{ 'not-allowed':store.getDataIsLoadingMarketsProfilesList() }"
+    [ngClass]="{ 'not-allowed': store.getDataIsLoadingMarketsProfilesList() }"
   >
-    <button [ngClass]="{ 'not-allowed':store.getDataIsLoadingMarketsProfilesList() }" [disabled]="store.getDataIsLoadingMarketsProfilesList()" class="border-0 bg-transparent">
+    <button
+      [ngClass]="{ 'not-allowed': store.getDataIsLoadingMarketsProfilesList() }"
+      [disabled]="store.getDataIsLoadingMarketsProfilesList()"
+      class="border-0 bg-transparent"
+    >
       <img src="assets/icons/admin-layout-icons/added_location.svg" />
     </button>
   </div>
 
-  <div class="d-none d-md-block" *ngIf="store.getDataIsLoadingMarketsProfilesList()">
+  <div
+    class="d-none d-md-block"
+    *ngIf="store.getDataIsLoadingMarketsProfilesList()"
+  >
     <table-view-skeleton></table-view-skeleton>
   </div>
 
-  <div class="d-block d-md-none" *ngIf="store.getDataIsLoadingMarketsProfilesList()">
+  <div
+    class="d-block d-md-none"
+    *ngIf="store.getDataIsLoadingMarketsProfilesList()"
+  >
     <table-view-skeleton></table-view-skeleton>
   </div>
 
   <!-- MOBILE -->
-  <div *ngIf="store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()" class="d-md-block d-md-none overflow-auto mt-4">
+  <div
+    *ngIf="
+      store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()
+    "
+    class="d-md-block d-md-none overflow-auto mt-4"
+  >
     <app-search-input
       *ngIf="store.getPlans()?.length"
       [attributeName]="'search'"
@@ -38,7 +53,6 @@
           trackBy: byId;
           let fist = first
         "
-       
         class="cursor-pointer bg-white mt-3 border-radius-10 p-2"
       >
         <div class="content d-flex justify-content-between align-items-center">
@@ -55,10 +69,7 @@
                 alt=""
               />
             </div>
-            <div
-              class="border-0 bg-transparent"
-              (click)="removePlan(plan.id)"
-            >
+            <div class="border-0 bg-transparent" (click)="removePlan(plan.id)">
               <img
                 src="assets/icons/admin-layout-icons/delete_trash.svg"
                 alt=""
@@ -72,7 +83,9 @@
 
   <!-- DESKTOP -->
   <div
-    *ngIf="store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()"
+    *ngIf="
+      store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()
+    "
     class="card d-none d-md-flex p-3"
     style="max-height: 100vh"
   >
@@ -87,7 +100,7 @@
     <div
       *ngIf="(store.getPlans() | searchBox : searchText)?.length"
       class="overflow-auto"
-      style="max-height: 500px;"
+      style="max-height: 500px"
     >
       <table class="table">
         <thead style="position: sticky; top: 0">
@@ -140,10 +153,11 @@
     </div>
   </div>
 
-
-  <app-loader style="position: absolute; left: 40%;" *ngIf="store.getIsLoadingAfterCrudOperation()"></app-loader>
-
-  <ng-container *ngIf="!store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()">
+  <ng-container
+    *ngIf="
+      !store.getPlans()?.length && !store.getDataIsLoadingMarketsProfilesList()
+    "
+  >
     <div class="full-height special-size">
       <h5
         class="d-flex justify-content-center align-items-center text-center fsz-30 special-size text-white"
@@ -153,6 +167,8 @@
     </div>
   </ng-container>
 </div>
+
+<app-loader *ngIf="store.getIsLoadingAfterCrudOperation()"></app-loader>
 
 <ng-template #noFilterData let-className="className">
   <ng-container

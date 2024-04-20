@@ -60,11 +60,11 @@ export const routes: Routes = [
         loadComponent: () => import('./admin-layout/auth/components/login/containers/login-container/login-container.component')
             .then(mod => mod.AdminLoginContainer),
     },
-    // {
-    //     path: 'reset-password',
-    //     loadComponent: () => import('./admin-layout/auth/components/resetPassword/containers/resetPassword-container/resetPassword-container.component')
-    //         .then(mod => mod.AdminResetPasswordContainer),
-    // },
+    {
+        path: 'reset-password',
+        loadComponent: () => import('./admin-layout/auth/components/resetPassword/containers/resetPassword-container/resetPassword-container.component')
+            .then(mod => mod.AdminResetPasswordContainer),
+    },
 
 
      {

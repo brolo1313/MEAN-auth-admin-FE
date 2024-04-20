@@ -59,16 +59,16 @@ export class AuthService {
     );;
   }
 
-  public forgotPwRequest(user: any) {
-    return this.http.put(`${environment.apiUrl}/system/common/tokens/auth/password/reset/request`, user).subscribe(
-      (response) => {
-          this.resetPassService.setIsConfirmed(true)
-          this.resetPassService.setConfirmationData(response)
+  public forgotPwRequest(data: any) {
+    this.store.setDataIsLoadingMarketsProfilesList(true);
+    return this.http.post(`${environment.apiUrl}/reset-password`, data).subscribe(
+      (response:any) => {
+          this.store.setDataIsLoadingMarketsProfilesList(false);
+          this.toastService.openSnackBar(response.message, 'successful', 'top');
+          this.router.navigate(['/login']);
       },
       (error) => {
-        if(error.status === 500) {
-          // this.toastService.show('Помилка на сервері',  { classname: 'bg-danger text-light', delay: 3000 });
-        }
+        this.store.setDataIsLoadingMarketsProfilesList(false);
       }
     );
   }

@@ -12,7 +12,7 @@ export class ToastService {
   public openSnackBar(message: string, type?: string, verticalPosition?: any, horizontalPosition?: any) {
     const _snackType = type !== undefined ? type : '';
     this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: 4000,
+      duration: 7000,
       horizontalPosition: horizontalPosition || 'center',
       verticalPosition: verticalPosition || 'end',
       panelClass: type,
