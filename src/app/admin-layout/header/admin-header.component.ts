@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -12,6 +12,8 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent {
+
+  @Input() title: string = '';
 
   authService = inject(AuthService)
   router = inject(Router);

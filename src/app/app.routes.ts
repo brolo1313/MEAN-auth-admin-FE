@@ -25,12 +25,14 @@ export const routes: Routes = [
                 path: 'dashboard',
                 loadComponent: () => import('./admin-layout/dashboard/containers/dashboard-list-container/dashboard-list-container.component')
                     .then(mod => mod.AdminDashboardContainerComponent),
+                data: { title: 'Дошка' }
                 // canActivate: [AuthGuard]
             },
             {
                 path: 'contacts',
                 loadComponent: () => import('./admin-layout/users/component/users/users.component')
                     .then(mod => mod.ContactsComponent),
+                data: { title: 'Наші користувачі' }
                 // canActivate: [AuthGuard]
             },
         ]

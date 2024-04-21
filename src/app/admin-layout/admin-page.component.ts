@@ -1,6 +1,6 @@
 import { Component, ViewChild, } from '@angular/core';
 import { NgIf, CommonModule, NgFor } from '@angular/common';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AdminHeaderComponent } from './header/admin-header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,21 +29,19 @@ export class AdminPageComponent {
 
   public openSidebar: boolean = false;
 
-
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isCollapsed = true;
   isMobile = true;
-  title: string = '';
+  public titleHeader: string = '';
 
-  constructor(private observer: BreakpointObserver, private router: Router) {
+
+  constructor(private observer: BreakpointObserver, private router: Router, private route: ActivatedRoute) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      console.log(event.urlAfterRedirects);
-      // Extract the route's data to get the title
-      // const routeTitle = this.getTitleFromRoute(this.router.routerState, this.router.routerState.root).join(' | ');
-      // this.title = routeTitle;
+      const title = this.getTitleFromRoute(this.route.root);
+      this.titleHeader = title;
     });
   }
 
@@ -59,13 +57,23 @@ export class AdminPageComponent {
   }
 
 
-  showSubmenu(itemEl: HTMLElement) {
+  public showSubmenu(itemEl: HTMLElement) {
     itemEl.classList.toggle("showMenu");
   }
 
-  navigateToPage(item: any) {
-    this.router.navigate([item.url]);
-    this.title = item.title;
+  private getTitleFromRoute(route: ActivatedRoute): string {
+    let currentRoute = route;
+    let title = '';
+
+    while (currentRoute.firstChild) {
+      currentRoute = currentRoute.firstChild;
+      const data = currentRoute.snapshot.data;
+      if (data && data['title']) {
+        title = data['title'];
+      }
+    }
+
+    return title;
   }
 
 }
