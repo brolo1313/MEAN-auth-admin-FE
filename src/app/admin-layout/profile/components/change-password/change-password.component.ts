@@ -1,5 +1,5 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { Router } from '@angular/router';
 import { matchValidator } from 'src/app/admin-layout/auth/helpers/form-validators';
+import { LocalStorageService } from 'src/app/admin-layout/auth/services/local-storage.services';
+import { ProfileService } from '../../services/profile.service';
 
 
 @Component({
@@ -25,7 +27,10 @@ import { matchValidator } from 'src/app/admin-layout/auth/helpers/form-validator
 })
 export class ChangePasswordComponent {
 
-  // @Output() private updatePassword = new EventEmitter();
+  localStorageService = inject(LocalStorageService);
+  profileService = inject(ProfileService);
+
+  userSettings: any;
 
   public form = this.fb.group({
     oldPassword: [null, Validators.required],
@@ -38,7 +43,9 @@ export class ChangePasswordComponent {
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router
-  ) {}
+  ) {
+    this.userSettings = this.localStorageService.getUserSettings();
+  }
 
 
   get oldPasswordFC(): UntypedFormControl {
@@ -53,7 +60,11 @@ export class ChangePasswordComponent {
 
 
   public onSubmit(form:any): void {
-    const {newPassword , oldPassword} = form.value;
+    const result = {
+      id: this.userSettings.id,
+      body: {...form.value}
+    }
 
+    this.profileService.changeProfilePassword(result);
   }
 }

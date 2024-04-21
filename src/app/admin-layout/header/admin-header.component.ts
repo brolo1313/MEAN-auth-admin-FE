@@ -26,10 +26,8 @@ export class AdminHeaderComponent {
   userSettings: any;
 
   ngOnInit(): void {
-    const userSettingsString = this.localStorage.getUserSettings();
-    if (userSettingsString) {
-      this.userSettings = { ...JSON.parse(userSettingsString).userSettings };
-    }
+
+    this.userSettings = this.localStorage.getUserSettings();
   }
 
   public logOut() {

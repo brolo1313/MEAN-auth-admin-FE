@@ -19,8 +19,8 @@ export class AuthGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
-    const isLogged = JSON.parse(this.localStorageService.getUserSettings()!);
-    const userToken = isLogged?.userSettings?.accessToken
+    const isLogged = this.localStorageService.getUserSettings();
+    const userToken = isLogged?.accessToken
 
     if(!userToken || !isLogged){
       this.router.navigate(['/login'], { replaceUrl: true });

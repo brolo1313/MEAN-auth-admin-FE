@@ -72,20 +72,5 @@ export class AuthService {
       }
     );
   }
-
-  public forgotPwConfirm(user: any) {
-    return this.http.put(`${environment.apiUrl}/system/common/tokens/auth/password/reset/confirm`, user).subscribe(
-      (response) => {
-        // this.toastService.show('Пароль вислано',  { classname: 'bg-success text-light', delay: 3000 });
-        this.router.navigate(['/admin/login']);
-      },
-      (error) => {
-        if(error.status === 500) {
-          // this.toastService.show('Помилка на сервері',  { classname: 'bg-danger text-light', delay: 3000 });
-        }
-      }
-    );
-  }
- 
 }
 

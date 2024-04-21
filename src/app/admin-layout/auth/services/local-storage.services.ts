@@ -9,7 +9,11 @@ export class LocalStorageService {
 
 
   getUserSettings() {
-    return localStorage.getItem(this.userSettingsStorageKey);
+    const userSettingsString = localStorage.getItem(this.userSettingsStorageKey);
+    if (userSettingsString) {
+      return  { ...JSON.parse(userSettingsString).userSettings };
+    }
+    return false;
   }
   setUserSettings(userSettings: any) {
     localStorage.setItem(this.userSettingsStorageKey, JSON.stringify({ userSettings: userSettings }));
