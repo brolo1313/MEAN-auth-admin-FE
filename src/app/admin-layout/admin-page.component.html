@@ -15,7 +15,7 @@
         <li *ngFor="let item of navItems" #itemEl routerLinkActive="active">
           <div *ngIf="item.sub_menu.length == 0" class="dropdown-title d-flex align-items-center justify-content-between">
             <a style="height: 60px;" class="d-flex justify-content-center align-items-center full-width" [routerLink]="[item.path]">
-              <mat-icon style="color: orange" class="link_icon">{{
+              <mat-icon [ngClass]="openSidebar ? 'me-4' : 'me-0' " style="color: orange" class="link_icon">{{
                 item.icon
               }}</mat-icon>
               <span *ngIf="openSidebar" class="link_name">{{
@@ -29,7 +29,7 @@
             (click)="showSubmenu(itemEl)"
           >
             <a style="height: 60px;" class="d-flex justify-content-center align-items-center full-width">
-              <mat-icon style="color: orange" class="link_icon">{{
+              <mat-icon [ngClass]="openSidebar ? 'me-4' : 'me-0' " style="color: orange" class="link_icon">{{
                 item.icon
               }}</mat-icon>
               <span *ngIf="openSidebar" class="link_name">{{
@@ -54,7 +54,7 @@
               routerLinkActive="active"
             >
               <a class="d-flex align-items-center full-width full-height" *ngIf="!openSidebar"  [routerLink]="[item_sub.path]">{{ item_sub.link_name }}</a>
-              <a class="d-flex align-items-center full-width full-height" *ngIf="openSidebar" style="padding-left: 30px;"  [routerLink]="[item_sub.path]">{{ item_sub.link_name }}</a>
+              <a class="d-flex align-items-center justify-content-center full-width full-height" *ngIf="openSidebar"  [routerLink]="[item_sub.path]">{{ item_sub.link_name }}</a>
 
             </li>
           </ul>
