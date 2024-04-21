@@ -36,10 +36,15 @@ export const routes: Routes = [
 
             {
                 path: 'profile-settings',
-                // loadComponent: () => import('./admin-layout/users/component/users/users.component')
-                //     .then(mod => mod.ContactsComponent),
+                loadComponent: () => import('./admin-layout/profile/profile-page.component')
+                    .then(mod => mod.ProfilePageComponent),
                 data: { title: 'Налаштування' },
                 children: [
+                    // {
+                    //     path: '',
+                    //     redirectTo: 'change-password',
+                    //     pathMatch: 'full'
+                    // },
                     {
                         path: 'change-password',
                         loadComponent: () => import('./admin-layout/profile/components/change-password/change-password.component')

@@ -51,9 +51,6 @@ export class ChangePasswordComponent {
     return this.form.get('confirmPassword') as UntypedFormControl;
   }
 
-  public backClicked() {
-    this.router.navigate(['/profile']);
-  }
 
   public onSubmit(form:any): void {
     const {newPassword , oldPassword} = form.value;

@@ -14,11 +14,14 @@
   border: none;
 }
 .credentials-info {
-  padding: 0px 15px;
+  padding: 5px 15px;
 }
 ::ng-deep {
   .mat-mdc-menu-content {
     padding: 15px 0px !important;
+  }
+  .mat-mdc-menu-panel {
+    width: 500px;
   }
 }
 

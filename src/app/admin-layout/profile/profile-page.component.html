@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div class="d-flex">
+    <div class="col-2 left-sight navigation-settings">
+      <ul>
+        <li *ngFor="let nav of navSettingsItems; let i = index;">
+          <span [routerLink]="[nav.path]">{{nav. link_name}}</span>
+        </li> 
+      </ul>
+    </div>
+    <div class="col-10 rigth-sight">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

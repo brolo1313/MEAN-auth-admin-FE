@@ -37,7 +37,6 @@ export class AdminHeaderComponent {
   }
 
   public navigateToPassPage() {
-    console.log('click profile settings');
-    this.router.navigate(['/admin/profile-settings/change-password']);
+    this.router.navigate(['/admin/profile-settings']);
   }
 }
