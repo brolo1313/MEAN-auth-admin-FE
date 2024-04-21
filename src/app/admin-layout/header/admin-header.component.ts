@@ -36,7 +36,8 @@ export class AdminHeaderComponent {
     this.authService.signOut();
   }
 
-  public pathToLogin() {
-    this.router.navigate(['/login']);
+  public navigateToPassPage() {
+    console.log('click profile settings');
+    this.router.navigate(['/admin/profile-settings/change-password']);
   }
 }

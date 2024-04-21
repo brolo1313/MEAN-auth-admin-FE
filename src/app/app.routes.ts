@@ -26,14 +26,27 @@ export const routes: Routes = [
                 loadComponent: () => import('./admin-layout/dashboard/containers/dashboard-list-container/dashboard-list-container.component')
                     .then(mod => mod.AdminDashboardContainerComponent),
                 data: { title: 'Дошка' }
-                // canActivate: [AuthGuard]
             },
             {
                 path: 'contacts',
                 loadComponent: () => import('./admin-layout/users/component/users/users.component')
                     .then(mod => mod.ContactsComponent),
                 data: { title: 'Наші користувачі' }
-                // canActivate: [AuthGuard]
+            },
+
+            {
+                path: 'profile-settings',
+                // loadComponent: () => import('./admin-layout/users/component/users/users.component')
+                //     .then(mod => mod.ContactsComponent),
+                data: { title: 'Налаштування' },
+                children: [
+                    {
+                        path: 'change-password',
+                        loadComponent: () => import('./admin-layout/profile/components/change-password/change-password.component')
+                            .then(mod => mod.ChangePasswordComponent),
+                        data: { title: 'Зміна паролю' }
+                    },
+                ]
             },
         ]
     },
@@ -67,7 +80,6 @@ export const routes: Routes = [
         loadComponent: () => import('./admin-layout/auth/components/resetPassword/containers/resetPassword-container/resetPassword-container.component')
             .then(mod => mod.AdminResetPasswordContainer),
     },
-
 
      {
         path: 'registration',
