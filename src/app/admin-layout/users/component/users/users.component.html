@@ -4,20 +4,64 @@
     else noData
   "
 >
-  <ul>
-    <li *ngFor="let user of storeUsers.getUsers(); index as i" class="users-list">
-      <span><strong>{{ i + 1 }}. name:</strong>{{ user.username }}</span>
-      <span style="margin-left: 18px;"><strong>email:</strong> {{ user.email }}</span>
+  <div class="topic-wrapper mt-3">
+    <div
+      class="position-relative count-users-block d-flex flex-column col-12 col-sm-3 col-md-2 p-2"
+    >
+      <div class="icon-block bg-primary">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="d-flex flex-column align-items-end lh-1">
+        <span class="text-secondary">Users</span>
+        <span class="text-dark fsz-30"
+          ><strong>{{ storeUsers.getUsers().length }}</strong></span
+        >
+      </div>
+      <hr class="divider text-secondary" />
+      <div class="d-flex">
+        <span class="text-success">+55% </span
+        ><span class="text-secondary">than last week</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ul>
+    <li
+      *ngFor="let user of storeUsers.getUsers(); index as i"
+      class="users-list"
+    >
+      <span
+        ><strong>{{ i + 1 }}. name:</strong>{{ user.username }}</span
+      >
+      <span style="margin-left: 18px"
+        ><strong>email:</strong> {{ user.email }}</span
+      >
     </li>
-  </ul>
+  </ul> -->
 </ng-container>
 
 <ng-template #noData>
-  <ul>
+  <!-- <ul>
     <li class="skeleton-box"></li>
     <li class="skeleton-box"></li>
     <li class="skeleton-box"></li>
     <li class="skeleton-box"></li>
     <li class="skeleton-box"></li>
-  </ul>
+  </ul> -->
+
+  <div
+    class="position-relative count-users-block d-flex flex-column col-12 col-sm-3 col-md-2 p-2 skeleton-box-wrapper mt-3"
+  >
+    <div class="icon-block bg-primary skeleton-box">
+      <mat-icon></mat-icon>
+    </div>
+    <div class="d-flex flex-column align-items-end lh-1 skeleton-box">
+      <span class="text-secondary skeleton-box"></span>
+      <span class="text-dark fsz-30 skeleton-box"><strong></strong></span>
+    </div>
+    <hr class="divider text-secondary skeleton-box" />
+    <div class="d-flex skeleton-box">
+      <span class="text-success skeleton-box"></span><span class="text-secondary skeleton-box"></span>
+    </div>
+  </div>
 </ng-template>
