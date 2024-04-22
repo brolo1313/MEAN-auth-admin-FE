@@ -3,7 +3,7 @@
 export const settings_navigation: any[] = [
     {
       id: 'main',
-      link_name: 'Загалльні',
+      link_name: 'Загальні',
       path: '/admin/profile-settings',
     },
   

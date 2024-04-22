@@ -1,2 +1,15 @@
 @import "../../../styles/settings";
 
+.nav-item {
+    border-radius: 10px;
+    border: 1px solid lightslategrey;
+    padding: 5px 30px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.selected{
+    background-color: darkslategrey;
+}

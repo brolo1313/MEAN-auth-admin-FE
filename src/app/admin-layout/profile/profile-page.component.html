@@ -1,13 +1,13 @@
 <div class="main-container">
-  <div class="d-flex flex-column flex-md-row ">
-    <div class="col-2 left-sight navigation-settings">
-      <ul>
-        <li *ngFor="let nav of navSettingsItems; let i = index;">
-          <span [routerLink]="[nav.path]">{{nav. link_name}}</span>
-        </li> 
-      </ul>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="left-sight navigation-settings">
+      <div class="d-flex flex-row flex-md-column column-gap-3 row-gap-3 flex-wrap">
+        <ng-container *ngFor="let nav of navSettingsItems; let i = index">
+          <span class="nav-item cursor-pointer" [class.selected]="selectedItem === i" (click)="selectedItem = i" [routerLink]="[nav.path]">{{ nav.link_name }}</span>
+        </ng-container>
+      </div>
     </div>
-    <div class="col-10 rigth-sight">
+    <div class="flex-grow-1 rigth-sight">
       <router-outlet></router-outlet>
     </div>
   </div>
