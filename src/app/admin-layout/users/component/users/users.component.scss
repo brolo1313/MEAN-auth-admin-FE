@@ -25,11 +25,13 @@
 }
 
 .card-item {
-  width: 200px;
+  width: 150px;
   height: 300px;
   background-image: linear-gradient(315deg, #2d3436, #323232 74%);
   border-radius: 10px;
-  flex-grow: 1;
+  @media  (max-width: 768px) {
+    flex-grow: 1;
+  }
 }
 
 .avatar {
