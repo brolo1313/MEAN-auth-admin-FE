@@ -2,7 +2,7 @@
   <div class="desktop" style="height: 100vh;max-height: 100svh;">
     <div class="sidebar" [class.sidebar-close]="!openSidebar">
       <div class="logo-details px-2 py-3 d-flex justify-content-center">
-        <div class="logo rounded"></div>
+        <div class="logo"></div>
         <mat-icon
           *ngIf="openSidebar"
           style="color: orange; font-size: 30px; margin-top: 5px"
@@ -11,8 +11,8 @@
           >arrow_back</mat-icon
         >
       </div>
-      <ul class="nav-links ps-0" id="nav-links">
-        <li *ngFor="let item of navItems" #itemEl routerLinkActive="active">
+      <ul class="nav-links" [class.px-0]="!openSidebar"  [class.px-2]="openSidebar" id="nav-links">
+        <li *ngFor="let item of navItems" [ngClass]="{'showMenu': (itemEl.classList.contains('active'))}" #itemEl routerLinkActive="active">
           <div *ngIf="item.sub_menu.length == 0" class="dropdown-title d-flex align-items-center justify-content-between">
             <a style="height: 60px;" class="d-flex justify-content-center align-items-center full-width" [routerLink]="[item.path]">
               <mat-icon [ngClass]="openSidebar ? 'me-4' : 'me-0' " style="color: orange" class="link_icon">{{

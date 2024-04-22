@@ -1,5 +1,7 @@
 @import "../../styles/settings";
 
+$border-radius: 10px;
+
 /* Hamburger Menu */
 .hamburger-menu {
   position: relative;
@@ -113,6 +115,8 @@
   height: 40px;
   width: 100%;
   background-image: linear-gradient(to right, #ffa726, #ff5722);
+
+  border-radius: $border-radius;
 }
 
 .sidebar .nav-links {
@@ -130,25 +134,25 @@
 .sidebar .nav-links > li {
   position: relative;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: $border-radius;
 }
 
 .sidebar .nav-links li.active .dropdown-title {
   background-image: linear-gradient(to right, #ffa726, #ff5722);
   width: auto;
-  border-radius: 20px;
+  border-radius: $border-radius;
 }
 
 /* Dropdown Title */
 .sidebar .nav-links .dropdown-title {
-  width: 260px;
+  width: auto;
   overflow: hidden;
   // transition: all 0.52s ease;
   position: relative;
 }
 
 .sidebar.sidebar-close .nav-links .dropdown-title {
-  width: 60px;
+  width: auto;
 }
 
 .arrow {
@@ -213,7 +217,7 @@
 
 .sidebar .nav-links li .sub-menu li.active {
   background-image: linear-gradient(to right, #ffa726, #ff5722);
-  border-radius: 20px;
+  border-radius: $border-radius;
 }
 
 .sidebar.sidebar-close .nav-links li .sub-menu {
