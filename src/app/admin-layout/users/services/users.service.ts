@@ -25,9 +25,9 @@ export class UsersService {
 
 
 
-  public getUsers() {
+  public getProfiles() {
     this.store.setIsLoadingAllUsers(true);
-    return this.http.get(`${environment.apiUrl}/getAllUsers`).subscribe(
+    return this.http.get(`${environment.apiUrl}/all-profiles`).subscribe(
       (response) => {
         this.store.storedAllUsers(response)
         this.store.setIsLoadingAllUsers(false);

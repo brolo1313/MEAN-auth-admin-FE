@@ -25,12 +25,14 @@
 }
 
 .card-item {
-  width: 150px;
+  width: 250px;
   height: 300px;
   background-image: linear-gradient(315deg, #2d3436, #323232 74%);
   border-radius: 10px;
-  @media  (max-width: 768px) {
+  @media (max-width: 576px) {
     flex-grow: 1;
+    width: 150px;
+    height: 300px;
   }
 }
 
@@ -49,4 +51,12 @@
     height: 100%;
     align-items: center;
   }
+}
+
+.post-count {
+  background-color: #055905;
+  border-radius: 50%;
+
+  width: 60px;
+  height: 60px;
 }

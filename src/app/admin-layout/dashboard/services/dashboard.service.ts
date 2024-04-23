@@ -54,11 +54,15 @@ export class DashboardService {
   }
 
 
-  public deletePlan(planId: string) {
+  public deletePlan(data: any) {
     this.store.setIsLoadingAfterCrudOperation(true);
-    return this.http.delete(`${environment.apiUrl}/plans/${planId}`).subscribe(
+    return this.http.delete(`${environment.apiUrl}/plans/${data.id}`, {
+      params: {
+        authorId: data.currentUser
+      }
+    }).subscribe(
       (response) => {
-        this.store.deleteMarketProfile(planId);
+        this.store.deleteMarketProfile(data.id);
         this.store.setIsLoadingAfterCrudOperation(false);
         this.toastService.openSnackBar('Видалення успішне', 'successful-delete', 'top');
       },

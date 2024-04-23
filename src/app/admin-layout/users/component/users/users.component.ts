@@ -21,6 +21,6 @@ export class ContactsComponent {
   storeUsers = inject(StoreUsersService);
 
   ngOnInit() {
-    this.usersService.getUsers();
+    this.usersService.getProfiles();
   }
 }
