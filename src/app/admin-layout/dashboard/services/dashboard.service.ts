@@ -42,8 +42,13 @@ export class DashboardService {
     return this.http.post(`${environment.apiUrl}/plan`, {
       ...body
     }).subscribe(
-      (response) => {
-        this.store.addedMarketProfile(response);
+      (response:any) => {
+        const {_id, ...otherData} = response;
+        const result = {
+          ...otherData,
+          id:_id
+        }
+        this.store.addedMarketProfile(result);
         this.store.setIsLoadingAfterCrudOperation(false);
         this.toastService.openSnackBar('Створення успішне', 'successful', 'top');
       },
