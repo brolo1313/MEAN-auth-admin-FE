@@ -124,25 +124,29 @@
                 {{ plan.details }}
               </div>
             </td>
-            <td>
+            <td class="align-bottom">
               <div class="actions d-flex justify-content-end">
                 <div
+                  *ngIf="
+                    plan.plan_manager === localStorage.getUserSettings().id;
+                    else overView
+                  "
                   class="border-0 bg-transparent cursor-pointer"
                   (click)="updatePlan(plan)"
                 >
-                  <img
-                    src="assets/icons/admin-layout-icons/edit_pencil.svg"
-                    alt=""
-                  />
+                  <mat-icon>edit</mat-icon>
                 </div>
-                <div
-                  class="border-0 bg-transparent cursor-pointer"
-                  (click)="removePlan(plan?.id)"
-                >
-                  <img
-                    src="assets/icons/admin-layout-icons/delete_trash.svg"
-                    alt=""
-                  />
+                <ng-template #overView>
+                  <mat-icon (click)="preView(plan)" class="cursor-pointer">remove_red_eye</mat-icon>
+                </ng-template>
+                <div>
+                  <button
+                    
+                    class="border-0 bg-transparent cursor-pointer ms-3"
+                    (click)="removePlan(plan?.id)"
+                  >
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
                 </div>
               </div>
             </td>

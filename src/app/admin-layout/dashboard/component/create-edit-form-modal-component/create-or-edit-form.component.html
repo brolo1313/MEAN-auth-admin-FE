@@ -5,7 +5,11 @@
         {{
           dataDialog?.isEdit
             ? "Редагувати план"
-            : "Додати новий план"
+            : dataDialog?.isCreate
+            ? "Додати новий план"
+            : dataDialog?.isPreview
+            ? "Перегляд"
+            : ""
         }}
       </h5>
     </div>
@@ -21,7 +25,6 @@
     </div>
   </div>
   <form [formGroup]="locationForm" class="mx-2 full-width">
-    
     <div class="d-flex flex-column mt-2">
       <label>Назва</label>
       <input type="text" formControlName="title" />
@@ -38,7 +41,7 @@
       <img
         *ngIf="planLinkFC.value"
         (click)="
-          copyInputMessage(planLinkFC.value); showTooltip('1',copiedHint)
+          copyInputMessage(planLinkFC.value); showTooltip('1', copiedHint)
         "
         class="copy-clipboard pos-absolute"
         src="assets/icons/admin-layout-icons/copy-clipboard.svg"
@@ -48,8 +51,9 @@
       />
     </div>
 
-    <ng-container *ngIf="dataDialog?.isEdit">
+    <ng-container *ngIf="dataDialog?.isEdit || dataDialog?.isPreview">
       <div
+        [ngClass]="{ 'mb-3': dataDialog?.isPreview }"
         class="qrcode-block d-flex flex-column flex-sm-row justify-content-around align-items-center mt-3"
       >
         <div class="py-3">
@@ -92,7 +96,10 @@
       </div>
     </ng-container>
 
-    <div class="d-flex justify-content-center my-4 w-100-p column-gap-3">
+    <div
+      *ngIf="dataDialog?.isCreate || dataDialog?.isEdit"
+      class="d-flex justify-content-center my-4 w-100-p column-gap-3"
+    >
       <div class="full-width">
         <button
           (click)="cancel()"

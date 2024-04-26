@@ -252,3 +252,8 @@ $tableHeader: #ededed;
     text-decoration:underline;
   }
 }
+
+
+button:focus {
+  outline: none;
+}

@@ -11,11 +11,13 @@ import { filter } from 'rxjs';
 import { DeleteConfirmationComponent } from 'src/app/shared/components/delete-confirmation/delete-confirmation.component';
 import { TableViewSkeletonComponent } from 'src/app/shared/components/skeletons/table-view/table-view.skeleton.component';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
+import { LocalStorageService } from 'src/app/admin-layout/auth/services/local-storage.services';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-admin-dashboard-list',
   standalone: true,
-  imports: [CommonModule, NgFor, SearchInputComponent, SearchBoxPipe, TableViewSkeletonComponent, LoaderComponent],
+  imports: [CommonModule, NgFor, SearchInputComponent, SearchBoxPipe, TableViewSkeletonComponent, LoaderComponent, MatIconModule],
   templateUrl: './dashboard-list.component.html',
   styleUrls: ['./dashboard-list.component.scss'],
 })
@@ -24,6 +26,7 @@ export class DashboardListComponent implements OnInit {
   store = inject(StoreMarketsService);
   dialog = inject(MatDialog);
   userProfile = this.store.getPlans();
+  localStorage = inject(LocalStorageService);
 
   @Output() createPlan = new EventEmitter();
   @Output() editPlan = new EventEmitter();
@@ -43,7 +46,7 @@ export class DashboardListComponent implements OnInit {
       maxWidth: '400px',
       width: '100%',
       data: {
-        isEdit: false,
+        isCreate: true,
       },
     });
 
@@ -86,6 +89,17 @@ export class DashboardListComponent implements OnInit {
       filter((data: any) => !!data),
     ).subscribe(result => {
       this.editPlan.emit(result)
+    });
+  }
+
+  public preView(plan: any) {
+    const dialogRef = this.dialog.open(AdminCreateOrEditFormComponent, {
+      maxWidth: '400px',
+      width: '100%',
+      data: {
+        isPreview: true,
+        plan: plan,
+      },
     });
   }
 

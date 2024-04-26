@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { SafeUrl } from '@angular/platform-browser';
@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-admin-create-or-edit-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgFor, NgIf, QRCodeModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [ReactiveFormsModule, FormsModule, NgFor, NgIf, NgClass, QRCodeModule, MatFormFieldModule, MatInputModule, MatIconModule],
   templateUrl: './create-or-edit-form.component.html',
   styleUrls: ['./create-or-edit-form.component.scss']
 })
@@ -54,7 +54,7 @@ export class AdminCreateOrEditFormComponent {
   }
 
   ngOnInit() {
-    if (this.dataDialog.isEdit) {
+    if (this.dataDialog.isEdit || this.dataDialog.isPreview) {
       this.fillForm(this.dataDialog.plan);
     }
   }
