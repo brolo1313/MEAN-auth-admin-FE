@@ -25,9 +25,9 @@ export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
   return next(modifiedRequest).pipe(
     catchError((error: HttpErrorResponse) => {
       const errorName: string = error?.name;
-      const errorCode = error?.error.status;
-      const errorMessage = error?.error?.message;
-      const errorStatus = error?.error.status;
+      const errorCode = error?.error.status || null;
+      const errorMessage = error?.error?.message || null;
+      const errorStatus = error?.error.status || null;
 
       const errorKey = Object.keys(error.error)[0];
 
@@ -62,7 +62,7 @@ export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
             openSnackBar(`Запитуваний ресурс недоступний, код помилки: ${error.status}`);
             break;
           default:
-            openSnackBar(`${errorMessage} ${errorCode ?? errorStatus}` || 'Неочікувана помилка');
+            openSnackBar(errorMessage ? `${errorMessage} ${errorCode ?? errorStatus}` : 'Неочікувана помилка');
         }
       }
       return throwError(error);
