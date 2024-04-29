@@ -2,16 +2,20 @@
 
 input {
   border-radius: 20px;
-  height: 40px;
+  height: 45px;
   width: 270px;
   text-indent: 10px;
   border: 1px solid #f8b218;
 }
 
+label {
+  font-size: clamp(18px, 2vw, 22px);
+}
+
 button {
   background: #f8b218;
-  border-radius: 20px;
-  height: 40px;
+  border-radius: 10px;
+  height: 50px;
 }
 
 i {
@@ -26,6 +30,31 @@ i {
 
 div.login-wrapper {
   height: 100svh;
-  background: url(../../../../../../assets/image/login-background.jpg) center/cover
-  no-repeat;
+  background: url(../../../../../../assets/image/login-background.jpg)
+    center/cover no-repeat;
+}
+
+.google-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  width: 270px;
+  height: 55px; 
+  font-size: clamp(18px, 2vw, 22px);
+}
+
+div.divider {
+  margin-top: 20px;
+  color: #f8b218;
+  // span::after {
+  //   content: "";
+  //   flex: 1 1 10%;
+  //   border-bottom: 1px solid rgb(193, 199, 198);
+  //   margin: 0px 10px;
+  //   transform: translateY(-50%);
+  // }
 }

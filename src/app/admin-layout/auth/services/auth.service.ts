@@ -72,5 +72,21 @@ export class AuthService {
       }
     );
   }
+
+
+  loginWithGoogle() {
+    // this.store.setDataIsLoadingMarketsProfilesList(true);
+    return this.http.get(`${environment.apiUrl}/auth/google`, ).subscribe(
+      (response) => {
+        console.log('response client', response);
+        // this.localStorageService.setUserSettings(response);
+        // this.router.navigate(['/admin/dashboard']);
+        // this.store.setDataIsLoadingMarketsProfilesList(false);
+      },
+      (error) => {
+        // this.store.setDataIsLoadingMarketsProfilesList(false);
+      }
+    );
+  }
 }
 

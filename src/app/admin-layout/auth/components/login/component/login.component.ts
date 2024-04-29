@@ -6,7 +6,6 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/stored-markets-list.services';
 
-
 @Component({
   selector: 'app-admin-login',
   standalone: true,
@@ -17,6 +16,8 @@ import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/sto
 export class LoginComponent {
 
  @Output() loginEmitter = new EventEmitter();
+ @Output() googleAuthEmitter = new EventEmitter();
+
 
   public fb = inject(UntypedFormBuilder);
   public router = inject(Router);
@@ -33,6 +34,10 @@ export class LoginComponent {
   public submit(loginForm:any) {
     const data = loginForm.value;
     this.loginEmitter.emit(data);
+  }
+
+  public singInWithGoogle(){
+    this.googleAuthEmitter.emit();
   }
 
   public navigateToChosePage(){
