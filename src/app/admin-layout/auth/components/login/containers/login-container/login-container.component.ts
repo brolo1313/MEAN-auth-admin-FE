@@ -32,7 +32,7 @@ export class AdminLoginContainer {
       if(userDataParam){
         const userData = JSON?.parse(decodeURIComponent(userDataParam));
         console.log('User data:', userData);
-         this.localStorageService.setUserSettings(userData.userSettings);
+         this.localStorageService.setUserSettings(userData);
         this.router.navigate(['/admin/dashboard']);
       }
    

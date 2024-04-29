@@ -128,7 +128,7 @@
               <div class="actions d-flex justify-content-end">
                 <div
                   *ngIf="
-                    plan.plan_manager === localStorage.getUserSettings().id;
+                    plan.plan_manager === localStorage.getUserSettings().id && localStorage.getUserSettings().id
                     else overView
                   "
                   class="border-0 bg-transparent cursor-pointer"

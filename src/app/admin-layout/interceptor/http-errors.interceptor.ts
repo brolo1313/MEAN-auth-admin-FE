@@ -1,4 +1,4 @@
-import type { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import type { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { HttpErrors } from './http-error.config';
 import { inject } from '@angular/core';
@@ -15,13 +15,20 @@ export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
   const openSnackBar = (message: any, status = '') => toast.openSnackBar(message, 'error');
 
   const localeStorage = localStorage?.getItem('auth');
-  const accessToken = localeStorage ? JSON.parse(localeStorage).userSettings.accessToken : null;
+  const accessToken = localeStorage ? JSON.parse(localeStorage)?.userSettings?.accessToken : null;
 
-  const modifiedRequest = req.clone({
-    setHeaders: {
-      Authorization: accessToken ? `Bearer ${accessToken}` : ''
-    }
-  })
+  let modifiedRequest: HttpRequest<any>;
+  
+  //we need to remove header of authorization, due correctly work OAuth2
+  if(accessToken){
+     modifiedRequest = req.clone({
+      setHeaders: {
+        Authorization: accessToken ? `Bearer ${accessToken}` : ''
+      }
+    })
+  }else {
+    modifiedRequest = req.clone();
+  }
   return next(modifiedRequest).pipe(
     catchError((error: HttpErrorResponse) => {
       const errorName: string = error?.name;

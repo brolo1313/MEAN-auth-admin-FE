@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
+import { LocalStorageService } from './local-storage.services';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,14 @@ import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 export class AuthGoogleService {
   private oAuthService = inject(OAuthService);
   private router = inject(Router);
+  private localStorageService = inject(LocalStorageService);
 
   constructor() {
-    this.initConfiguration();
-    console.log(window.location.origin);
+  //  const currentUser =  this.localStorageService.getUserSettings();
+  //  console.log(currentUser);
+  //  if(!currentUser || currentUser !== undefined) {
+  //   this.initConfiguration();
+  //  }
   }
 
   initConfiguration() {
@@ -31,6 +36,7 @@ export class AuthGoogleService {
   }
 
   login() {
+    this.initConfiguration();
     this.oAuthService.initImplicitFlow();
   }
 
