@@ -40,10 +40,10 @@ export class AuthGoogleService {
     this.oAuthService.initImplicitFlow();
   }
 
-  // logout() {
-  //   this.oAuthService.revokeTokenAndLogout();
-  //   this.oAuthService.logOut();
-  // }
+  logout() {
+    this.oAuthService.revokeTokenAndLogout();
+    this.oAuthService.logOut();
+  }
 
   // getProfile() {
   //   const profile = this.oAuthService.getIdentityClaims();
