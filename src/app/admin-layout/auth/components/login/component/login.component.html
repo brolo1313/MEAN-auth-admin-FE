@@ -51,7 +51,7 @@
             matInput
             placeholder="your_email@example.com"
             [formControl]="EmailFC"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
           />
           <mat-icon *ngIf="EmailFC.valid && EmailFC.dirty">
             check_circle_outline
