@@ -62,19 +62,33 @@
             </h5>
           </div>
 
-          <div class="actions d-flex">
-            <div class="border-0 bg-transparent" (click)="updatePlan(plan)">
-              <img
-                src="assets/icons/admin-layout-icons/edit_pencil.svg"
-                alt=""
-              />
+          <div class="actions d-flex align-items-center">
+            <div
+              *ngIf="
+                plan.plan_manager === localStorage.getUserSettings().id &&
+                  localStorage.getUserSettings().id;
+                else overView
+              "
+              class="d-flex align-self-center border-0 bg-transparent cursor-pointer"
+              (click)="updatePlan(plan)"
+            >
+              <mat-icon class="text-dark">edit</mat-icon>
             </div>
-            <div class="border-0 bg-transparent" (click)="removePlan(plan.id)">
-              <img
-                src="assets/icons/admin-layout-icons/delete_trash.svg"
-                alt=""
-              />
-            </div>
+            <ng-template #overView>
+              <div class="d-flex align-self-center">
+                <mat-icon
+                  (click)="preView(plan)"
+                  class="text-dark cursor-pointer"
+                  >remove_red_eye</mat-icon
+                >
+              </div>
+            </ng-template>
+            <button
+              class="d-flex align-self-center border-0 bg-transparent cursor-pointer ms-3"
+              (click)="removePlan(plan?.id)"
+            >
+              <mat-icon>delete_outline</mat-icon>
+            </button>
           </div>
         </div>
       </div>
@@ -128,7 +142,8 @@
               <div class="actions d-flex justify-content-end">
                 <div
                   *ngIf="
-                    plan.plan_manager === localStorage.getUserSettings().id && localStorage.getUserSettings().id
+                    plan.plan_manager === localStorage.getUserSettings().id &&
+                      localStorage.getUserSettings().id;
                     else overView
                   "
                   class="border-0 bg-transparent cursor-pointer"
@@ -137,11 +152,12 @@
                   <mat-icon>edit</mat-icon>
                 </div>
                 <ng-template #overView>
-                  <mat-icon (click)="preView(plan)" class="cursor-pointer">remove_red_eye</mat-icon>
+                  <mat-icon (click)="preView(plan)" class="cursor-pointer"
+                    >remove_red_eye</mat-icon
+                  >
                 </ng-template>
                 <div>
                   <button
-                    
                     class="border-0 bg-transparent cursor-pointer ms-3"
                     (click)="removePlan(plan?.id)"
                   >

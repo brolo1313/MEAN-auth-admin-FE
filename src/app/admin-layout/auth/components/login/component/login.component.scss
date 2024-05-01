@@ -68,6 +68,7 @@ div.divider {
     position: absolute;
     right: 12px;
     top: 63px;
+    font-size: clamp(18px, 2vw, 22px);
     transform: translateY(-50%);
     color: mediumseagreen;
   }
