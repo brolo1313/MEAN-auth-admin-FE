@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, inject } from '@angular/core';
 import { LoginComponent } from '../../component/login.component';
 import { AuthService } from '../../../../services/auth.service';
+import { AuthGoogleService } from 'src/app/admin-layout/auth/services/authGoogleService';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/admin-layout/auth/services/local-storage.services';
+import { ToastService } from 'src/app/shared/services/toasts.service';
 
 
 @Injectable({
@@ -18,12 +22,41 @@ import { AuthService } from '../../../../services/auth.service';
   styleUrls: ['./login-container.component.scss'],
 })
 export class AdminLoginContainer {
-  
+  private OauthService = inject(AuthGoogleService);
+  private route = inject(ActivatedRoute);
+  private localStorageService = inject(LocalStorageService);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
 
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService) {
+    this.route?.queryParams?.subscribe(params => {
+      const userDataParam = params['userData'];
+      const error = params['error'];
 
+      if (error) {
+        const errorMessage = JSON?.parse(decodeURIComponent(error));
+        this.toastService.openSnackBar(errorMessage.message, 'error', 'top');
+        this.OauthService.logout();
+
+        this.router.navigate([], {
+          queryParams: {}
+        });
+      }
+
+      if (userDataParam) {
+        const userData = JSON?.parse(decodeURIComponent(userDataParam));
+        this.localStorageService.setUserSettings(userData);
+        this.router.navigate(['/admin/dashboard']);
+      }
+
+    
+    });
   }
-  public onLogin(loginData: any){
+  public onLogin(loginData: any) {
     this.authService.login(loginData)
+  }
+
+  public onGoogleAuthEmitter() {
+    this.OauthService.login()
   }
 }
