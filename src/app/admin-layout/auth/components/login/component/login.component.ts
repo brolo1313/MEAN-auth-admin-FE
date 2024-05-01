@@ -1,15 +1,17 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/stored-markets-list.services';
+import { MatIconModule } from '@angular/material/icon';
+import { MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent, RouterModule],
+  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent, RouterModule, MatIconModule, MatError],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -24,12 +26,15 @@ export class LoginComponent {
   public store = inject(StoreMarketsService);
 
   public loginForm: UntypedFormGroup = this.fb.group({
-    username: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
   public hide = true;
 
+  get EmailFC(): FormControl {
+    return this.loginForm.get('email') as UntypedFormControl;
+  }
  
   public submit(loginForm:any) {
     const data = loginForm.value;

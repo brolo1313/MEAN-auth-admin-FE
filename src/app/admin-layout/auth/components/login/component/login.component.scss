@@ -58,3 +58,17 @@ div.divider {
   //   transform: translateY(-50%);
   // }
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  mat-icon {
+    position: absolute;
+    right: 12px;
+    top: 63px;
+    transform: translateY(-50%);
+    color: mediumseagreen;
+  }
+}

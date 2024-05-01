@@ -44,14 +44,18 @@
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm)" class="mt-4">
-        <div class="d-flex flex-column">
-          <label class="text-white mb-2">Імя</label>
+        <div class="input-wrapper">
+          <label class="text-white mb-2">Пошта</label>
           <input
-            type="text"
+            type="email"
             matInput
-            placeholder="Імя"
-            formControlName="username"
+            placeholder="your_email@example.com"
+            [formControl]="EmailFC"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           />
+          <mat-icon *ngIf="EmailFC.valid && EmailFC.dirty">
+            check_circle_outline
+          </mat-icon>
         </div>
 
         <div class="d-flex flex-column mt-3 pos-relative">
