@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "./local-storage.services";
@@ -27,7 +27,7 @@ export class AuthService {
 
   login(loginData: USER_CREDENTIALS) {
     this.store.setDataIsLoadingMarketsProfilesList(true);
-    return this.http.post(`${environment.apiUrl}/sign-in`, loginData ).subscribe(
+    return this.http.post(`${environment.apiUrl}/sign-in`, loginData).subscribe(
       (response) => {
         this.localStorageService.setUserSettings(response);
         this.router.navigate(['/admin/dashboard']);
@@ -62,10 +62,10 @@ export class AuthService {
   public forgotPwRequest(data: any) {
     this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/reset-password`, data).subscribe(
-      (response:any) => {
-          this.store.setDataIsLoadingMarketsProfilesList(false);
-          this.toastService.openSnackBar(response.message, 'successful', 'top');
-          this.router.navigate(['/login']);
+      (response: any) => {
+        this.store.setDataIsLoadingMarketsProfilesList(false);
+        this.toastService.openSnackBar(response.message, 'successful', 'top');
+        this.router.navigate(['/login']);
       },
       (error) => {
         this.store.setDataIsLoadingMarketsProfilesList(false);
@@ -73,20 +73,5 @@ export class AuthService {
     );
   }
 
-
-  loginWithGoogle() {
-    // this.store.setDataIsLoadingMarketsProfilesList(true);
-    return this.http.get(`${environment.apiUrl}/auth/google`, ).subscribe(
-      (response) => {
-        console.log('response client', response);
-        // this.localStorageService.setUserSettings(response);
-        // this.router.navigate(['/admin/dashboard']);
-        // this.store.setDataIsLoadingMarketsProfilesList(false);
-      },
-      (error) => {
-        // this.store.setDataIsLoadingMarketsProfilesList(false);
-      }
-    );
-  }
 }
 
