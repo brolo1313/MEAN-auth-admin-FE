@@ -81,13 +81,17 @@ export class AuthService {
 
   public googleLogin() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    
     this.authService.authState.subscribe((user) => {
+      this.store.setDataIsLoadingMarketsProfilesList(true);
       return this.http.post(`${environment.apiUrl}/auth/google/callback`, user).subscribe(
         (response) => {
           this.localStorageService.setUserSettings(response);
           this.router.navigate(['/admin/dashboard']);
+          this.store.setDataIsLoadingMarketsProfilesList(false);
         },
         (error) => {
+          this.store.setDataIsLoadingMarketsProfilesList(false);
         }
       )
     });
