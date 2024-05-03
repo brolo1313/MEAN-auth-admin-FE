@@ -26,7 +26,7 @@ export class AuthService {
   toastService = inject(ToastService);
   store = inject(StoreMarketsService);
 
-  constructor(private authService: SocialAuthService) {
+  constructor(private authSocialService: SocialAuthService) {
     this.googleLogin();
 
   }
@@ -80,9 +80,9 @@ export class AuthService {
 
 
   public googleLogin() {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
     
-    this.authService.authState.subscribe((user) => {
+    this.authSocialService.authState.subscribe((user) => {
       this.store.setDataIsLoadingMarketsProfilesList(true);
       return this.http.post(`${environment.apiUrl}/auth/google/callback`, user).subscribe(
         (response) => {

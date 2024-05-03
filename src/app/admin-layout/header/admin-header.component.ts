@@ -7,7 +7,7 @@ import { AuthService } from '../auth/services/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { LocalStorageService } from '../auth/services/local-storage.services';
-import { AuthGoogleService } from '../auth/services/authGoogleService';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-admin-header',
@@ -23,7 +23,7 @@ export class AdminHeaderComponent {
   authService = inject(AuthService)
   router = inject(Router);
   localStorage = inject(LocalStorageService);
-  authGoogleService = inject(AuthGoogleService)
+  authSocialService = inject(SocialAuthService);
 
   userSettings: any;
 
@@ -34,7 +34,6 @@ export class AdminHeaderComponent {
 
   public logOut() {
     this.authService.signOut();
-    this.authGoogleService.logout();
   }
 
   public navigateToPassPage() {

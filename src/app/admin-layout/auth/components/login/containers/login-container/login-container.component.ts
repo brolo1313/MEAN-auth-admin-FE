@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Injectable, inject } from '@angular/core';
 import { LoginComponent } from '../../component/login.component';
 import { AuthService } from '../../../../services/auth.service';
-import { AuthGoogleService } from 'src/app/admin-layout/auth/services/authGoogleService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/admin-layout/auth/services/local-storage.services';
 import { ToastService } from 'src/app/shared/services/toasts.service';
@@ -22,7 +21,6 @@ import { ToastService } from 'src/app/shared/services/toasts.service';
   styleUrls: ['./login-container.component.scss'],
 })
 export class AdminLoginContainer {
-  private OauthService = inject(AuthGoogleService);
   private route = inject(ActivatedRoute);
   private localStorageService = inject(LocalStorageService);
   private router = inject(Router);
@@ -36,7 +34,6 @@ export class AdminLoginContainer {
       if (error) {
         const errorMessage = JSON?.parse(decodeURIComponent(error));
         this.toastService.openSnackBar(errorMessage.message, 'error', 'top');
-        this.OauthService.logout();
 
         this.router.navigate([], {
           queryParams: {}
@@ -57,7 +54,6 @@ export class AdminLoginContainer {
   }
 
   public onGoogleAuthEmitter() {
-    // this.OauthService.login()
     this.authService.googleLogin();
   }
 }
