@@ -57,6 +57,7 @@ export class AdminLoginContainer {
   }
 
   public onGoogleAuthEmitter() {
-    this.OauthService.login()
+    // this.OauthService.login()
+    this.authService.googleLogin();
   }
 }

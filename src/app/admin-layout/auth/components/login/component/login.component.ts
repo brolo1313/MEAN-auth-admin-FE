@@ -7,11 +7,12 @@ import { LoaderComponent } from 'src/app/shared/components/loader/loader.compone
 import { StoreMarketsService } from 'src/app/admin-layout/dashboard/services/stored-markets-list.services';
 import { MatIconModule } from '@angular/material/icon';
 import { MatError } from '@angular/material/form-field';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent, RouterModule, MatIconModule, MatError],
+  imports: [CommonModule, NgFor, ReactiveFormsModule, NgxMaskDirective, LoaderComponent, RouterModule, MatIconModule, MatError, GoogleSigninButtonModule ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

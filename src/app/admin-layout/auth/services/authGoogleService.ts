@@ -24,7 +24,7 @@ export class AuthGoogleService {
       issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false,
       clientId: '64531276471-rsgodsdm2879qssn0kvo3pkmtni0q1d5.apps.googleusercontent.com',
-      redirectUri: 'https://node-implementation.vercel.app/api/auth/google/callback',
+      redirectUri: 'http://localhost:3000/api/auth/google/callback',
       scope: 'openid profile email',
     };
     this.oAuthService.configure(authConfig);

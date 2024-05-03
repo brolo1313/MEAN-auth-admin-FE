@@ -6,6 +6,7 @@ import { ConfirmResetPasswordService } from "./confirm-reset-passwor.service";
 import { environment } from "src/environments/environment";
 import { ToastService } from "src/app/shared/services/toasts.service";
 import { StoreMarketsService } from "../../dashboard/services/stored-markets-list.services";
+import { GoogleLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login";
 
 export interface USER_CREDENTIALS {
   username: string,
@@ -25,6 +26,10 @@ export class AuthService {
   toastService = inject(ToastService);
   store = inject(StoreMarketsService);
 
+  constructor(private authService: SocialAuthService) {
+    this.googleLogin();
+
+  }
   login(loginData: USER_CREDENTIALS) {
     this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/sign-in`, loginData).subscribe(
@@ -73,5 +78,19 @@ export class AuthService {
     );
   }
 
-}
 
+  public googleLogin() {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.authState.subscribe((user) => {
+      return this.http.post(`${environment.apiUrl}/auth/google/callback`, user).subscribe(
+        (response) => {
+          this.localStorageService.setUserSettings(response);
+          this.router.navigate(['/admin/dashboard']);
+        },
+        (error) => {
+        }
+      )
+    });
+
+  }
+}
