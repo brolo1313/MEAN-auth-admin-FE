@@ -50,13 +50,27 @@ div.login-wrapper {
 div.divider {
   margin-top: 20px;
   color: #f8b218;
-  // span::after {
-  //   content: "";
-  //   flex: 1 1 10%;
-  //   border-bottom: 1px solid rgb(193, 199, 198);
-  //   margin: 0px 10px;
-  //   transform: translateY(-50%);
-  // }
+  position: relative;  
+}
+
+.divider > span::before,
+.divider > span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px; 
+  height: 1px; 
+  background-color:  #f8b218;
+}
+
+.divider > span::before {
+  left: 0;
+  margin-left: -35px;
+}
+
+.divider > span::after {
+  right: 0;
+  margin-right: -35px;
 }
 
 .input-wrapper {
