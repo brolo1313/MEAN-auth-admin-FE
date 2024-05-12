@@ -26,12 +26,15 @@ export const appConfig: ApplicationConfig = {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '64531276471-rsgodsdm2879qssn0kvo3pkmtni0q1d5.apps.googleusercontent.com'
+              '64531276471-rsgodsdm2879qssn0kvo3pkmtni0q1d5.apps.googleusercontent.com',
+              {
+                oneTapEnabled: false, // <===== default is true
+              }
             )
           }
         ]
       } as SocialAuthServiceConfig,
     },
-    GoogleSigninButtonDirective
+    GoogleSigninButtonDirective,
   ]
 };

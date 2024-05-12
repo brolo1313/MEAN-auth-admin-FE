@@ -6,7 +6,7 @@ import { ConfirmResetPasswordService } from "./confirm-reset-passwor.service";
 import { environment } from "src/environments/environment";
 import { ToastService } from "src/app/shared/services/toasts.service";
 import { StoreMarketsService } from "../../dashboard/services/stored-markets-list.services";
-import { GoogleLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login";
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
 
 export interface USER_CREDENTIALS {
   username: string,
@@ -17,7 +17,8 @@ export interface USER_CREDENTIALS {
   providedIn: 'root'
 })
 export class AuthService {
-  public user: any;
+  user!: SocialUser;
+  loggedIn!: boolean;
 
   resetPassService = inject(ConfirmResetPasswordService);
   http = inject(HttpClient);
@@ -27,9 +28,9 @@ export class AuthService {
   store = inject(StoreMarketsService);
 
   constructor(private authSocialService: SocialAuthService) {
-    this.googleLogin();
-
+    this.checkGoogleLogin();
   }
+
   login(loginData: USER_CREDENTIALS) {
     this.store.setDataIsLoadingMarketsProfilesList(true);
     return this.http.post(`${environment.apiUrl}/sign-in`, loginData).subscribe(
@@ -45,6 +46,9 @@ export class AuthService {
   }
 
   signOut() {
+    if (this.loggedIn) {
+      this.authSocialService.signOut();
+    }
     localStorage.clear();
     this.router.navigate(['/login']);
   }
@@ -81,20 +85,27 @@ export class AuthService {
 
   public googleLogin() {
     this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    
-    this.authSocialService.authState.subscribe((user) => {
-      this.store.setDataIsLoadingMarketsProfilesList(true);
-      return this.http.post(`${environment.apiUrl}/auth/google/callback`, user).subscribe(
-        (response) => {
-          this.localStorageService.setUserSettings(response);
-          this.router.navigate(['/admin/dashboard']);
-          this.store.setDataIsLoadingMarketsProfilesList(false);
-        },
-        (error) => {
-          this.store.setDataIsLoadingMarketsProfilesList(false);
-        }
-      )
-    });
+  }
 
+  public checkGoogleLogin() {
+    this.authSocialService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      if (user) {
+        this.store.setDataIsLoadingMarketsProfilesList(true);
+        return this.http.post(`${environment.apiUrl}/auth/google/callback`, user).subscribe(
+          (response) => {
+            this.localStorageService.setUserSettings(response);
+            this.router.navigate(['/admin/dashboard']);
+            this.store.setDataIsLoadingMarketsProfilesList(false);
+          },
+          (error) => {
+            this.store.setDataIsLoadingMarketsProfilesList(false);
+          }
+        )
+      }
+      return null;
+    }
+    );
   }
 }
