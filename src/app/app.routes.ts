@@ -56,25 +56,6 @@ export const routes: Routes = [
         ]
     },
 
-    //SITE layout
-    // {
-    //     path: '',
-    //     loadComponent: () => import('./site-layout/home.component')
-    //         .then(mod => mod.HomeComponent),
-    //     children: [
-    //         {
-    //             path: '',
-    //             redirectTo: 'plans',
-    //             pathMatch: 'full'
-    //         },
-    //         {
-    //             path: 'plans',
-    //             loadComponent: () => import('./site-layout/plan-list/containers/menu-list-container/plan-list-container.component')
-    //                 .then(mod => mod.PlanListContainerComponent),
-    //         },
-    //     ]
-    // },
-
     {
         path: 'login',
         loadComponent: () => import('./admin-layout/auth/components/login/containers/login-container/login-container.component')
