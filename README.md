@@ -17,7 +17,9 @@ I was made decision to adding skeleton for better UX.
   <a href="#">
   <img alt="GitHub Repo stars" src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white">
 </a>&nbsp;&nbsp;
-
+  <a href="#">
+  <img alt="GitHub Repo stars" src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white">
+</a>&nbsp;&nbsp;
 
 </p>
 
