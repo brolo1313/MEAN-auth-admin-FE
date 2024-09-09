@@ -5,7 +5,7 @@ Angular Material has been chose as main UI library , moreover bootstrap-grid i u
 I was made decision to adding skeleton for better UX.
 
 <p align='center'>
- <a href="https://github.com/sponsors/alexandresanlim">
+ <a href="#">
     <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" />
   </a>&nbsp;&nbsp;
   <a href="#">
